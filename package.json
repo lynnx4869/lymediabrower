@@ -1,0 +1,22 @@
+{
+    "name": "lymediabrower",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "webpack --config webpack.config.js --progress && node index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/lynnx4869/lymediabrower.git"
+    },
+    "author": "LYninG",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/lynnx4869/lymediabrower/issues"
+    },
+    "homepage": "https://github.com/lynnx4869/lymediabrower#readme",
+    "dependencies": {
+        "koa": "^2.4.1"
+    }
+}
