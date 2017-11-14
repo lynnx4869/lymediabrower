@@ -11,3 +11,5 @@ modern.json
 modern.jsonp
 resources/sass/.sass-cache/
 node_modules
+dist
+.vscode

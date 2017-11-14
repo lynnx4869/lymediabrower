@@ -5,10 +5,9 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 module.exports = {
 
     entry: {
-        path: path.join(__dirname, 'App/App.jsx'),
-        vendor: ['react', 'react-dom', 'react-router', 'superagent', 'moment']
+        path: path.join(__dirname, 'WebApp/App.jsx'),
+        vendor: ['react', 'react-dom', 'react-router', 'superagent']
     },
-
 
     output: {
         path: path.join(__dirname, 'dist/'),
@@ -26,7 +25,11 @@ module.exports = {
     module: {
         rules: [{
                 test: /\.(js|jsx)$/,
-                use: { loader: 'babel-loader' },
+                loader: 'babel-loader',
+                options: {
+                    presets: ['env', 'react'],
+                    compact: false
+                }
             },
             {
                 test: /\.css$/,
@@ -34,33 +37,18 @@ module.exports = {
             },
             {
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpg)$/,
-                use: { loader: 'url-loader?limit=10000' },
+                use: {
+                    loader: 'url-loader?limit=10000'
+                },
             }
         ]
     },
 
     plugins: [
         new CopyWebpackPlugin([{
-                from: './App/index.html'
-            },
-            {
-                from: './App/HTML/*.html',
-                flatten: true
-            },
-            {
-                from: './App/config.json'
-            }
-        ], {
+            from: './WebApp/app.html'
+        }], {
             copyUnmodified: true
-        }),
-
-        new webpack.LoaderOptionsPlugin({
-            options: {
-                babel: {
-                    presets: ['env', 'react'],
-                    compact: false
-                }
-            }
         }),
 
         new webpack.optimize.CommonsChunkPlugin({

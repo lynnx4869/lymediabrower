@@ -1,0 +1,107 @@
+@font-face {
+    font-family: 'iconfont';
+    src: url('../icons/iconfont.eot');
+    /* IE9*/
+    src: url('../icons/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../icons/iconfont.woff') format('woff'), /* chrome、firefox */
+    url('../icons/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('../icons/iconfont.svg#uxiconfont') format('svg');
+    /* iOS 4.1- */
+}
+
+.iconfont {
+    font-family: "iconfont" !important;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+    /*font-size: 20px;*/
+}
+
+html {
+    -webkit-text-size-adjust: none;
+    -ms-text-size-adjust: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    height: 100%;
+    background-color: #f5f5f5;
+}
+
+html,
+button,
+input,
+select,
+textarea {
+    font-family: Helvetica, STHeiti STXihei, Microsoft JhengHei, Microsoft YaHei, Arial;
+    color: #4a4a4a;
+    outline: none !important;
+}
+
+body {
+    margin: 0 auto;
+    min-width: 320px;
+    max-width: 540px;
+    /*height: 100%;*/
+    -webkit-text-size-adjust: 100% !important;
+    -webkit-user-select: none;
+    user-select: none;
+    /*font-size: 12px;*/
+    position: relative;
+}
+
+section {
+    display: block;
+}
+
+ul,
+li {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+a {
+    color: #363636;
+    outline: none !important;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:focus {
+    outline: thin dotted;
+}
+
+a:active,
+a:hover {
+    outline: 0;
+    text-decoration: none;
+}
+
+.hide {
+    display: none !important;
+}
+
+.file-item {
+    width: 100%;
+    height: 4rem;
+}
+
+.list-icon {
+    width: 15%;
+    height: 100%;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float: left;
+}
+
+.list-title {
+    width: 85%;
+    height: 100%;
+    float: left;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+}
