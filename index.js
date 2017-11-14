@@ -7,8 +7,8 @@ const bodyParser = require('body-parser');
 const app = express();
 
 const HomeService = require('./Server/HomeService');
+const docs = require('./Server/Configs');
 
-const docs = path.join(__dirname, '../../../../Documents');
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(express.static(docs));
 app.use(bodyParser.json());
@@ -21,7 +21,10 @@ app.get('/', (req, res) => res.sendFile(path.resolve('./dist/app.html')));
 app.post('/files', (req, res) => {
     if (req.body.fileroot == '') {
         res.set('Content-Type', 'application/json; charset=UTF-8');
-        res.status(200).json(HomeService.getRootFiles());
+        res.status(200).json(HomeService.getRootFiles(docs));
+    } else {
+        res.set('Content-Type', 'application/json; charset=UTF-8');
+        res.status(200).json(HomeService.getRootFiles(req.body.fileroot));
     }
 });
 

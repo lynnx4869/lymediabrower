@@ -3,43 +3,41 @@
 const fs = require('fs');
 const path = require('path');
 
-const docs = path.join(__dirname, '../../../../Documents');
-
 const txts = ['txt', 'doc', 'docx', 'ppt', 'xlsx', 'xlsx', 'pdf'];
 const images = ['png', 'jpg', 'bmp', 'gif'];
 const musics = ['mp3'];
-const videos = ['mp4', 'rmvb', 'mkv'];
+const videos = ['mp4', 'rmvb', 'mkv', 'avi', 'mov'];
 
 //获取文件名后缀名
-String.prototype.extension = () => {
+const extension = (item) => {
     var ext = null;
-    var name = this;
+    var name = item.valueOf();
     name = name.toLowerCase();
     var i = name.lastIndexOf(".");
     if (i > 0) {
-        var ext = name.substring(i);
+        var ext = name.substring(i + 1);
     }
     return ext;
 }
 
 //判断Array中是否包含某个值
-Array.prototype.contain = (obj) => {
-    for (var i = 0; i < this.length; i++) {
-        if (this[i] === obj)
+const contain = (arr, obj) => {
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i] == obj)
             return true;
     }
     return false;
 };
 
 const getFileType = (itemName) => {
-    let ext = itemName.extension();
-    if (txts.contain(ext)) {
+    let ext = extension(itemName);
+    if (contain(txts, ext)) {
         return 'txt';
-    } else if (images.contain(ext)) {
+    } else if (contain(images, ext)) {
         return 'image';
-    } else if (musics.contain(ext)) {
+    } else if (contain(musics, ext)) {
         return 'music';
-    } else if (videos.contain(ext)) {
+    } else if (contain(videos, ext)) {
         return 'video';
     } else {
         return 'others';
@@ -48,10 +46,17 @@ const getFileType = (itemName) => {
 
 const HomeService = {
 
-    getRootFiles() {
-        let dirList = fs.readdirSync(docs);
+    getRootFiles(dirPath) {
+        return {
+            fileList: this.getFiles(dirPath)
+        };
+    },
+
+    getFiles(dirPath) {
+        let dirList = fs.readdirSync(dirPath);
+        //subFiles: this.getFiles(itemPath)
         var fileList = dirList.map((item, index) => {
-            let itemPath = path.join(docs, item);
+            let itemPath = path.join(dirPath, item);
             if (fs.statSync(itemPath).isDirectory()) {
                 return {
                     itemName: item,
@@ -66,9 +71,7 @@ const HomeService = {
                 }
             }
         });
-        return {
-            fileList: fileList
-        };
+        return fileList;
     }
 
 };

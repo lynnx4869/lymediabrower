@@ -2,9 +2,9 @@ import HttpUtil from '../Helper/HttpUtil';
 
 class HomeService {
 
-    static getRootFiles(callback) {
+    static getRootFiles(url, callback) {
         let data = {
-            fileroot: ''
+            fileroot: url
         }
         HttpUtil.post('/files', data, callback);
     }
