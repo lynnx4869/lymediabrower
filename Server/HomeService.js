@@ -3,6 +3,8 @@
 const fs = require('fs');
 const path = require('path');
 
+const docs = require('./Configs');
+
 const txts = ['txt', 'doc', 'docx', 'ppt', 'xlsx', 'xlsx', 'pdf'];
 const images = ['png', 'jpg', 'bmp', 'gif'];
 const musics = ['mp3'];
@@ -61,12 +63,14 @@ const HomeService = {
                 return {
                     itemName: item,
                     itemPath: itemPath,
+                    playPath: '',
                     type: 'directory'
                 }
             } else {
                 return {
                     itemName: item,
                     itemPath: itemPath,
+                    playPath: itemPath.replace(docs, ''),
                     type: getFileType(item)
                 }
             }

@@ -2,7 +2,8 @@ import ReactDOM from 'react-dom';
 
 //引用CSS
 import '../HTML/css/css.css';
-// import '../../../UI/HTML/css/css.css';
+import '../node_modules/video.js/dist/video-js.min.css';
+import '../node_modules/photoswipe/dist/photoswipe.css';
 
 let appNode = document.getElementById('app');
 

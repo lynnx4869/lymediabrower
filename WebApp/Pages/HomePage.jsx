@@ -1,5 +1,7 @@
 import React from 'react';
 import HomeService from '../Services/HomeService';
+import VideoPage from './VideoPage';
+import ImagesPage from './ImagesPage';
 
 function getTypeIcon(type) {
     switch (type) {
@@ -40,8 +42,12 @@ class HomePage extends React.Component {
             items: [{
                 itemName: '主页',
                 itemPath: '',
-                type: 'directory'
-            }]
+                playPath: '',
+                type: 'directory',
+            }],
+            videoItem: {},
+            curIndex: 0,
+            images: []
         };
     }
 
@@ -72,6 +78,32 @@ class HomePage extends React.Component {
             }, () => {
                 self.loadData();
             });
+        } else if (item.type == 'video') {
+            this.setState({
+                videoItem: item
+            });
+        } else if (item.type == 'image') {
+            let list = this.state.list;
+            let playPath = item.playPath;
+            let curIndex = 0;
+            let images = list.map((image, index) => {
+                if (image.type == 'image') {
+                    if (image.playPath == playPath) {
+                        curIndex = index;
+                    }
+
+                    return {
+                        src: image.playPath,
+                        w: 964,
+                        h: 1024
+                    };
+                }
+            });
+
+            this.setState({
+                curIndex: curIndex,
+                images: images
+            });
         }
     }
 
@@ -89,10 +121,28 @@ class HomePage extends React.Component {
         }
     }
 
+    closeVideo() {
+        this.setState({
+            videoItem: {}
+        });
+    }
+
     render() {
         let self = this;
-        let items = self.state.items;
+        let { items, videoItem, images, curIndex } = self.state;
         let item = items[items.length - 1];
+
+        if (videoItem.playPath != undefined) {
+            return (
+                <VideoPage videoItem={videoItem} closeVideo={this.closeVideo.bind(this)} />
+            );
+        }
+
+        if (images.length > 0) {
+            return (
+                <ImagesPage images={images} curIndex={curIndex} />
+            );
+        }
 
         return (
             <section>
@@ -103,7 +153,7 @@ class HomePage extends React.Component {
                     </div>
                     <div className="title">{item.itemName}</div>
                 </section>
-                <section className="pt3">
+                <section className="mt3">
                     {
                         this.state.list.map((item, index) => {
                             return (
