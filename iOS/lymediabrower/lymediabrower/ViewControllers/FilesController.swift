@@ -156,6 +156,10 @@ class FilesController: UIViewController, UITableViewDelegate, UITableViewDataSou
             let vc = VideoController()
             vc.file = item
             navigationController?.pushViewController(vc, animated: true)
+        } else if item.type == "txt" {
+            let tc = TxtController()
+            tc.file = item
+            navigationController?.pushViewController(tc, animated: true)
         }
     }
     

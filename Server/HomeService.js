@@ -5,10 +5,10 @@ const path = require('path');
 
 const docs = require('./Configs');
 
-const txts = ['txt', 'doc', 'docx', 'ppt', 'xlsx', 'xlsx', 'pdf'];
+const txts = ['txt', 'doc', 'docx', 'ppt', 'pptx', 'xlsx', 'xlsx', 'pdf', 'h', 'm', 'swift', 'java', 'js', 'jsx', 'html', 'css', 'json', 'epub'];
 const images = ['png', 'jpg', 'bmp', 'gif'];
 const musics = ['mp3'];
-const videos = ['mp4', 'rmvb', 'mkv', 'avi', 'mov'];
+const videos = ['mp4', 'rmvb', 'mkv', 'avi', 'mov', 'wmv'];
 
 //获取文件名后缀名
 const extension = (item) => {
@@ -56,7 +56,6 @@ const HomeService = {
 
     getFiles(dirPath) {
         let dirList = fs.readdirSync(dirPath);
-        //subFiles: this.getFiles(itemPath)
         var fileList = dirList.map((item, index) => {
             let itemPath = path.join(dirPath, item);
             if (fs.statSync(itemPath).isDirectory()) {
@@ -70,7 +69,7 @@ const HomeService = {
                 return {
                     itemName: item,
                     itemPath: itemPath,
-                    playPath: itemPath.replace(docs, ''),
+                    playPath: itemPath.replace(docs, '').replace('\\', '/'),
                     type: getFileType(item)
                 }
             }

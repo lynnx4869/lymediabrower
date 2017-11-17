@@ -11,6 +11,13 @@ import SnapKit
 
 class VideoControl: UIView {
     
+    var isControlHidden: Bool! = false {
+        didSet {
+            topView.isHidden = isControlHidden
+            bottomView.isHidden = isControlHidden
+        }
+    }
+    
     let topView = UIView()
     let centerView = UIView()
     let bottomView = UIView()
@@ -41,6 +48,9 @@ class VideoControl: UIView {
         centerView.backgroundColor = .clear
         bottomView.backgroundColor = .clear
         
+        centerView.isUserInteractionEnabled = true
+        centerView.isMultipleTouchEnabled = true
+        
         addSubview(topView)
         addSubview(centerView)
         addSubview(bottomView)
@@ -67,7 +77,6 @@ class VideoControl: UIView {
         }
         
         createTopViews()
-        createCenterViews()
         createBottomViews()
     }
     
@@ -90,10 +99,6 @@ class VideoControl: UIView {
             make.top.equalTo(topView.snp.top).offset(5)
             make.bottom.equalTo(topView.snp.bottom).offset(-5)
         }
-    }
-    
-    fileprivate func createCenterViews() {
-        
     }
     
     fileprivate func createBottomViews() {

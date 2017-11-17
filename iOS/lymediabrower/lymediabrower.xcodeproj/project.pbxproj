@@ -17,6 +17,7 @@
 		8B07FEFC1FBC3659007D299A /* FileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B07FEFA1FBC3659007D299A /* FileCell.xib */; };
 		8B07FEFE1FBC3907007D299A /* HttpUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B07FEFD1FBC3907007D299A /* HttpUtil.swift */; };
 		8B07FF011FBC3CB7007D299A /* FileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B07FF001FBC3CB7007D299A /* FileModel.swift */; };
+		8B4096F71FBED24E00777F4B /* TxtController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4096F61FBED24E00777F4B /* TxtController.swift */; };
 		8B99AB6E1FBD491E00873984 /* MobileVLCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B99AB6D1FBD491E00873984 /* MobileVLCKit.framework */; };
 		8B99AB701FBD493900873984 /* libbz2.1.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B99AB6F1FBD493900873984 /* libbz2.1.0.tbd */; };
 		8B99AB721FBD494300873984 /* libz.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B99AB711FBD494300873984 /* libz.1.tbd */; };
@@ -49,6 +50,7 @@
 		8B07FEFA1FBC3659007D299A /* FileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FileCell.xib; sourceTree = "<group>"; };
 		8B07FEFD1FBC3907007D299A /* HttpUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpUtil.swift; sourceTree = "<group>"; };
 		8B07FF001FBC3CB7007D299A /* FileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileModel.swift; sourceTree = "<group>"; };
+		8B4096F61FBED24E00777F4B /* TxtController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxtController.swift; sourceTree = "<group>"; };
 		8B99AB6D1FBD491E00873984 /* MobileVLCKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileVLCKit.framework; path = "../../../../libs-git/MobileVLCKit-binary/MobileVLCKit.framework"; sourceTree = "<group>"; };
 		8B99AB6F1FBD493900873984 /* libbz2.1.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.1.0.tbd; path = usr/lib/libbz2.1.0.tbd; sourceTree = SDKROOT; };
 		8B99AB711FBD494300873984 /* libz.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.tbd; path = usr/lib/libz.1.tbd; sourceTree = SDKROOT; };
@@ -137,6 +139,7 @@
 				8B07FEFA1FBC3659007D299A /* FileCell.xib */,
 				8B99AB8E1FBD583A00873984 /* VideoController.swift */,
 				8B99AB901FBD589100873984 /* VideoControl.swift */,
+				8B4096F61FBED24E00777F4B /* TxtController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 				8B07FEF71FBC3009007D299A /* RootUrlController.swift in Sources */,
 				8B07FEF01FBC2E15007D299A /* FilesController.swift in Sources */,
 				8B99AB911FBD589100873984 /* VideoControl.swift in Sources */,
+				8B4096F71FBED24E00777F4B /* TxtController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
