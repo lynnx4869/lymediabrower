@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import LYAutoUtils
 
 struct HttpUtil {
     
@@ -28,6 +29,7 @@ struct HttpUtil {
                           headers: headers)
             .responseJSON { response in
                 if response.error != nil {
+                    LYAutoPop.show(message: "网络错误", type: .error, duration: 2.0)
                     failure(response.error!)
                 } else {
                     success(response.result.value!)

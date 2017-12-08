@@ -2,7 +2,24 @@
 
 const path = require('path');
 
-const docs = path.join(__dirname, '../../../../Documents');
-// const docs = path.join(__dirname, '../../../../TDDOWNLOAD/魔穗字幕组');
+// path.join(__dirname, '../../../../Documents');
+// path.join(__dirname, '../../../../TDDOWNLOAD/魔穗字幕组');
 
-module.exports = docs;
+const modules = [{
+    itemName: 'Documents',
+    itemPath: path.join(__dirname, '../../../../Documents'),
+    playPath: '',
+    type: 'module'
+}, {
+    itemName: 'Documents',
+    itemPath: path.join(__dirname, '../../../../Documents'),
+    playPath: '',
+    type: 'module'
+}, {
+    itemName: 'Documents',
+    itemPath: path.join(__dirname, '../../../../Documents'),
+    playPath: '',
+    type: 'module'
+}];
+
+module.exports = modules;

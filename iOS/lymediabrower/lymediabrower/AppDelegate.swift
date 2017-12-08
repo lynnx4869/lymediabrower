@@ -72,8 +72,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let ruc = RootUrlController()
             return ruc
         } else {
-            let fc = FilesController()
-            let nav = UINavigationController(rootViewController: fc)
+            let mc = ModulesController()
+            let nav = UINavigationController(rootViewController: mc)
             nav.navigationBar.isTranslucent = false
             return nav
         }

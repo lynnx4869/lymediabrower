@@ -9,12 +9,12 @@
 import UIKit
 import SnapKit
 import MJRefresh
-import LYAutoUtils
 import MWPhotoBrowser
 
 class FilesController: UIViewController, UITableViewDelegate, UITableViewDataSource, MWPhotoBrowserDelegate {
     
     var file: FileModel!
+    var modulePath: String!
     
     fileprivate var tableView: UITableView!
     fileprivate var files = [FileModel]()
@@ -26,19 +26,6 @@ class FilesController: UIViewController, UITableViewDelegate, UITableViewDataSou
         // Do any additional setup after loading the view.
         
         view.backgroundColor = .white
-        
-        if file == nil {
-            file = FileModel()
-            file.itemName = "主页"
-            file.itemPath = ""
-            file.playPath = ""
-            file.type = ""
-            file.imageIndex = -1
-        
-            let item = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(changeUrl(_:)))
-            navigationItem.rightBarButtonItem = item
-        }
-        
         navigationItem.title = file.itemName
         
         tableView = UITableView(frame: .zero, style: .plain)
@@ -67,7 +54,7 @@ class FilesController: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     @objc fileprivate func onLoadData() {
         HttpUtil.request(url: "/files",
-                         parameters: ["fileroot": file.itemPath],
+                         parameters: ["fileroot": file.itemPath, "modulePath": modulePath],
                          success:
             { [weak self] (data) in
                 let dic = data as! [String: Any]
@@ -94,14 +81,8 @@ class FilesController: UIViewController, UITableViewDelegate, UITableViewDataSou
                 self?.tableView.mj_header.endRefreshing()
                 self?.tableView.reloadData()
         }) { [weak self] (error) in
-            LYAutoPop.show(message: "网络错误", type: .error, duration: 2.0)
             self?.tableView.mj_header.endRefreshing()
         }
-    }
-    
-    @objc fileprivate func changeUrl(_ sender: UIBarButtonItem) {
-        let ruc = RootUrlController()
-        present(ruc, animated: true, completion: nil)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -130,6 +111,7 @@ class FilesController: UIViewController, UITableViewDelegate, UITableViewDataSou
         if item.type == "directory" {
             let fc = FilesController()
             fc.file = item
+            fc.modulePath = modulePath
             navigationController?.pushViewController(fc, animated: true)
         } else if item.type == "image" {
             let browser = MWPhotoBrowser(delegate: self)

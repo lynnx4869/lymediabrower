@@ -3,11 +3,11 @@
 const fs = require('fs');
 const path = require('path');
 
-const docs = require('./Configs');
+const modules = require('./Configs');
 
 const txts = ['txt', 'doc', 'docx', 'ppt', 'pptx', 'xlsx', 'xlsx', 'pdf', 'h', 'm', 'swift', 'java', 'js', 'jsx', 'html', 'css', 'json', 'epub'];
 const images = ['png', 'jpg', 'bmp', 'gif'];
-const musics = ['mp3'];
+const musics = ['mp3', 'wav', 'flac', 'ape'];
 const videos = ['mp4', 'rmvb', 'mkv', 'avi', 'mov', 'wmv'];
 
 //获取文件名后缀名
@@ -48,33 +48,66 @@ const getFileType = (itemName) => {
 
 const HomeService = {
 
-    getRootFiles(dirPath) {
+    getRootFiles(dirPath, modulePath) {
         return {
-            fileList: this.getFiles(dirPath)
+            fileList: this.getFiles(dirPath, modulePath)
         };
     },
 
-    getFiles(dirPath) {
+    getFiles(dirPath, modulePath) {
         let dirList = fs.readdirSync(dirPath);
-        var fileList = dirList.map((item, index) => {
+
+        let directorys = [];
+        let txts = [];
+        let images = [];
+        let musics = [];
+        let videos = [];
+        let others = [];
+
+        for (let item of dirList) {
             let itemPath = path.join(dirPath, item);
             if (fs.statSync(itemPath).isDirectory()) {
-                return {
+                directorys.push({
                     itemName: item,
                     itemPath: itemPath,
                     playPath: '',
                     type: 'directory'
-                }
+                });
             } else {
-                return {
+                let type = getFileType(item);
+                let file = {
                     itemName: item,
                     itemPath: itemPath,
-                    playPath: itemPath.replace(docs, '').replace('\\', '/'),
-                    type: getFileType(item)
+                    playPath: itemPath.replace(modulePath, '').replace('\\', '/'),
+                    type: type
+                };
+                switch (type) {
+                    case 'txt':
+                        txts.push(file);
+                        break;
+                    case 'image':
+                        images.push(file);
+                        break;
+                    case 'music':
+                        musics.push(file);
+                        break;
+                    case 'video':
+                        videos.push(file);
+                        break;
+                    case 'others':
+                        others.push(file);
+                        break;
                 }
             }
-        });
-        return fileList;
+        }
+
+        return directorys.concat(txts).concat(images).concat(musics).concat(videos).concat(others);
+    },
+
+    getModules() {
+        return {
+            modules: modules
+        }
     }
 
 };
