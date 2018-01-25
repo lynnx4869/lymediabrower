@@ -105,8 +105,16 @@ const HomeService = {
     },
 
     getModules() {
+        let newModules = [];
+        for (module of modules) {
+            let ret = fs.existsSync(module.itemPath);
+            if (ret) {
+                newModules.push(module);
+            }
+        }
+
         return {
-            modules: modules
+            modules: newModules
         }
     }
 
