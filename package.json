@@ -1,0 +1,25 @@
+{
+  "name": "lymediabrower",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "node ./Server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lynnx4869/lymediabrower.git"
+  },
+  "author": "LYninG",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lynnx4869/lymediabrower/issues"
+  },
+  "homepage": "https://github.com/lynnx4869/lymediabrower#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "fs": "0.0.1-security",
+    "path": "^0.12.7"
+  }
+}

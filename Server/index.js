@@ -6,8 +6,8 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-const HomeService = require('./Server/HomeService');
-const modules = require('./Server/Configs');
+const HomeService = require('./HomeService');
+const modules = require('./Configs');
 
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(bodyParser.json());
