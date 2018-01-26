@@ -122,9 +122,9 @@ class FilesController: UIViewController, UITableViewDelegate, UITableViewDataSou
             browser?.displayActionButton = false
             browser?.displayNavArrows = false
             browser?.displaySelectionButtons = false
-            browser?.zoomPhotosToFill = true
+            browser?.zoomPhotosToFill = false
             browser?.alwaysShowControls = false
-            browser?.enableGrid = true
+            browser?.enableGrid = false
             browser?.startOnGrid = false
             browser?.autoPlayOnAppear = false
 
