@@ -58,7 +58,7 @@ class VideoControl: UIView {
         topView.snp.makeConstraints { (make) in
             make.left.equalTo(self.snp.left).offset(0)
             make.right.equalTo(self.snp.right).offset(0)
-            make.top.equalTo(self.snp.top).offset(20)
+            make.top.equalTo(self.snp.top).offset(0)
             make.bottom.equalTo(centerView.snp.top).offset(0)
             make.height.equalTo(30)
         }
@@ -127,8 +127,8 @@ class VideoControl: UIView {
         
         playBtn.snp.makeConstraints { (make) in
             make.left.equalTo(bottomView.snp.left).offset(5)
-            make.top.equalTo(bottomView.snp.top).offset(0)
-            make.bottom.equalTo(bottomView.snp.bottom).offset(0)
+            make.top.equalTo(bottomView.snp.top).offset(5)
+            make.bottom.equalTo(bottomView.snp.bottom).offset(-5)
             make.height.equalTo(playBtn.snp.width).multipliedBy(1)
         }
         
@@ -148,8 +148,8 @@ class VideoControl: UIView {
         
         fullBtn.snp.makeConstraints { (make) in
             make.right.equalTo(bottomView.snp.right).offset(-5)
-            make.top.equalTo(bottomView.snp.top).offset(0)
-            make.bottom.equalTo(bottomView.snp.bottom).offset(0)
+            make.top.equalTo(bottomView.snp.top).offset(5)
+            make.bottom.equalTo(bottomView.snp.bottom).offset(-5)
             make.height.equalTo(fullBtn.snp.width).multipliedBy(1)
         }
         

@@ -28,6 +28,8 @@ class FilesController: UIViewController, UITableViewDelegate, UITableViewDataSou
         view.backgroundColor = .white
         navigationItem.title = file.itemName
         
+        
+        
         tableView = UITableView(frame: .zero, style: .plain)
         tableView.delegate = self
         tableView.dataSource = self

@@ -15,17 +15,6 @@ class ModulesController: UIViewController, UICollectionViewDelegate, UICollectio
     
     fileprivate var collectionView: UICollectionView!
     fileprivate var modules = [FileModel]()
-    
-    fileprivate let images = [
-        UIImage(named: "icon001"),
-        UIImage(named: "icon002"),
-        UIImage(named: "icon003"),
-        UIImage(named: "icon004"),
-        UIImage(named: "icon005"),
-        UIImage(named: "icon006"),
-        UIImage(named: "icon007"),
-        UIImage(named: "icon008"),
-    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,8 +97,7 @@ class ModulesController: UIViewController, UICollectionViewDelegate, UICollectio
         let module = modules[indexPath.item]
         cell.title = module.itemName
         
-        let i = Int(arc4random()) % images.count
-        cell.iconImage.image = images[i]
+        cell.iconImage.image = Consts.getDefaultImage()
                 
         return cell
     }

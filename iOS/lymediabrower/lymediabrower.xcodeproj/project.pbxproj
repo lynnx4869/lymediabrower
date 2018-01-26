@@ -17,8 +17,9 @@
 		8B07FEFC1FBC3659007D299A /* FileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B07FEFA1FBC3659007D299A /* FileCell.xib */; };
 		8B07FEFE1FBC3907007D299A /* HttpUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B07FEFD1FBC3907007D299A /* HttpUtil.swift */; };
 		8B07FF011FBC3CB7007D299A /* FileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B07FF001FBC3CB7007D299A /* FileModel.swift */; };
+		8B2C67E51FEB9F7D00072055 /* LYExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2C67E41FEB9F7D00072055 /* LYExtensions.swift */; };
 		8B4096F71FBED24E00777F4B /* TxtController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4096F61FBED24E00777F4B /* TxtController.swift */; };
-		8B99AB6E1FBD491E00873984 /* MobileVLCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B99AB6D1FBD491E00873984 /* MobileVLCKit.framework */; };
+		8B664D9C20196E9D00ABC107 /* MobileVLCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B664D9B20196E9D00ABC107 /* MobileVLCKit.framework */; };
 		8B99AB701FBD493900873984 /* libbz2.1.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B99AB6F1FBD493900873984 /* libbz2.1.0.tbd */; };
 		8B99AB721FBD494300873984 /* libz.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B99AB711FBD494300873984 /* libz.1.tbd */; };
 		8B99AB741FBD495000873984 /* libc++.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B99AB731FBD495000873984 /* libc++.1.tbd */; };
@@ -53,8 +54,9 @@
 		8B07FEFA1FBC3659007D299A /* FileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FileCell.xib; sourceTree = "<group>"; };
 		8B07FEFD1FBC3907007D299A /* HttpUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpUtil.swift; sourceTree = "<group>"; };
 		8B07FF001FBC3CB7007D299A /* FileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileModel.swift; sourceTree = "<group>"; };
+		8B2C67E41FEB9F7D00072055 /* LYExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LYExtensions.swift; sourceTree = "<group>"; };
 		8B4096F61FBED24E00777F4B /* TxtController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxtController.swift; sourceTree = "<group>"; };
-		8B99AB6D1FBD491E00873984 /* MobileVLCKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileVLCKit.framework; path = "../../../../libs-git/MobileVLCKit-binary/MobileVLCKit.framework"; sourceTree = "<group>"; };
+		8B664D9B20196E9D00ABC107 /* MobileVLCKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileVLCKit.framework; path = "../../../../libs-git/MobileVLCKit.framework"; sourceTree = "<group>"; };
 		8B99AB6F1FBD493900873984 /* libbz2.1.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.1.0.tbd; path = usr/lib/libbz2.1.0.tbd; sourceTree = SDKROOT; };
 		8B99AB711FBD494300873984 /* libz.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.tbd; path = usr/lib/libz.1.tbd; sourceTree = SDKROOT; };
 		8B99AB731FBD495000873984 /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "usr/lib/libc++.1.tbd"; sourceTree = SDKROOT; };
@@ -84,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B664D9C20196E9D00ABC107 /* MobileVLCKit.framework in Frameworks */,
 				8B99AB861FBD49E300873984 /* AudioToolbox.framework in Frameworks */,
 				8B99AB841FBD49D400873984 /* VideoToolbox.framework in Frameworks */,
 				8B99AB821FBD49BF00873984 /* CoreMedia.framework in Frameworks */,
@@ -92,7 +95,6 @@
 				8B99AB7C1FBD498E00873984 /* AVFoundation.framework in Frameworks */,
 				8B99AB7A1FBD497D00873984 /* MediaPlayer.framework in Frameworks */,
 				8B99AB761FBD495D00873984 /* libiconv.2.tbd in Frameworks */,
-				8B99AB6E1FBD491E00873984 /* MobileVLCKit.framework in Frameworks */,
 				8B99AB701FBD493900873984 /* libbz2.1.0.tbd in Frameworks */,
 				8B99AB721FBD494300873984 /* libz.1.tbd in Frameworks */,
 				6765BA741DD087CF34798B7A /* Pods_lymediabrower.framework in Frameworks */,
@@ -107,6 +109,7 @@
 		4C1955015F6D94410D8A193F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8B664D9B20196E9D00ABC107 /* MobileVLCKit.framework */,
 				8B99AB851FBD49E000873984 /* AudioToolbox.framework */,
 				8B99AB831FBD49CE00873984 /* VideoToolbox.framework */,
 				8B99AB811FBD49B900873984 /* CoreMedia.framework */,
@@ -119,7 +122,6 @@
 				8B99AB731FBD495000873984 /* libc++.1.tbd */,
 				8B99AB711FBD494300873984 /* libz.1.tbd */,
 				8B99AB6F1FBD493900873984 /* libbz2.1.0.tbd */,
-				8B99AB6D1FBD491E00873984 /* MobileVLCKit.framework */,
 				503C0916248B22D6E65B8191 /* Pods_lymediabrower.framework */,
 			);
 			name = Frameworks;
@@ -131,6 +133,7 @@
 				8B07FEF11FBC2E33007D299A /* Consts.swift */,
 				8B07FEF31FBC2EF3007D299A /* AppConfig.swift */,
 				8B07FEFD1FBC3907007D299A /* HttpUtil.swift */,
+				8B2C67E41FEB9F7D00072055 /* LYExtensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -365,6 +368,7 @@
 				8B07FEFB1FBC3659007D299A /* FileCell.swift in Sources */,
 				8B07FEF71FBC3009007D299A /* RootUrlController.swift in Sources */,
 				8B07FEF01FBC2E15007D299A /* FilesController.swift in Sources */,
+				8B2C67E51FEB9F7D00072055 /* LYExtensions.swift in Sources */,
 				8B99AB911FBD589100873984 /* VideoControl.swift in Sources */,
 				8B4096F71FBED24E00777F4B /* TxtController.swift in Sources */,
 				8BE7BAFC1FDA4C9F004621D3 /* ModulesController.swift in Sources */,
@@ -508,7 +512,8 @@
 					"\"$PODS_CONFIGURATION_BUILD_DIR/SnapKit\"",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/SwiftyJSON\"",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/pop\"",
-					"/Users/xianing/Documents/libs-git/MobileVLCKit-binary",
+					"/Users/xianing/Documents/libs-git",
+					"$(PROJECT_DIR)/lymediabrower",
 				);
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = lymediabrower/Info.plist;
@@ -552,7 +557,8 @@
 					"\"$PODS_CONFIGURATION_BUILD_DIR/SnapKit\"",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/SwiftyJSON\"",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/pop\"",
-					"/Users/xianing/Documents/libs-git/MobileVLCKit-binary",
+					"/Users/xianing/Documents/libs-git",
+					"$(PROJECT_DIR)/lymediabrower",
 				);
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = lymediabrower/Info.plist;

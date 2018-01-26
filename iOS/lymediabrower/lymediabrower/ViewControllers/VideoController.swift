@@ -16,6 +16,7 @@ class VideoController: UIViewController, VLCMediaPlayerDelegate {
     fileprivate let playView = UIView()
     fileprivate var iplayer: VLCMediaPlayer!
     fileprivate var video: VLCMedia!
+    fileprivate let controlBg = UIView()
     fileprivate let control = VideoControl()
     
     fileprivate var isFullscreenModel: Bool! {
@@ -24,25 +25,43 @@ class VideoController: UIViewController, VLCMediaPlayerDelegate {
             
             if isFullscreenModel {
                 playView.snp.remakeConstraints { (make) in
-                    make.edges.equalTo(self.view).inset(UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+                    make.edges.equalTo(view).inset(UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+                }
+                
+                controlBg.snp.remakeConstraints { (make) in
+                    make.edges.equalTo(view).inset(UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
                 }
                 
                 control.snp.remakeConstraints { (make) in
-                    make.edges.equalTo(self.view).inset(UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+                    var left: CGFloat = 0
+                    var right: CGFloat = 0
+                    if Consts.iPhoneX() {
+                        left = 44.0
+                        right = 44.0
+                    }
+                    make.edges.equalTo(controlBg).inset(UIEdgeInsets(top: 20, left: left, bottom: 20, right: right))
                 }
             } else {
                 playView.snp.remakeConstraints { (make) in
-                    make.top.equalTo(self.view.snp.top).offset(0)
-                    make.left.equalTo(self.view.snp.left).offset(0)
-                    make.right.equalTo(self.view.snp.right).offset(0)
+                    make.top.equalTo(view.snp.top).offset(0)
+                    make.left.equalTo(view.snp.left).offset(0)
+                    make.right.equalTo(view.snp.right).offset(0)
                     make.height.equalTo(playView.snp.width).multipliedBy(9.0/16.0).priority(750)
                 }
                 
+                controlBg.snp.remakeConstraints { (make) in
+                    make.top.equalTo(view.snp.top).offset(0)
+                    make.left.equalTo(view.snp.left).offset(0)
+                    make.right.equalTo(view.snp.right).offset(0)
+                    make.height.equalTo(controlBg.snp.width).multipliedBy(9.0/16.0).priority(750)
+                }
+                
                 control.snp.remakeConstraints { (make) in
-                    make.top.equalTo(self.view.snp.top).offset(0)
-                    make.left.equalTo(self.view.snp.left).offset(0)
-                    make.right.equalTo(self.view.snp.right).offset(0)
-                    make.height.equalTo(playView.snp.width).multipliedBy(9.0/16.0).priority(750)
+                    var top: CGFloat = 0
+                    if Consts.iPhoneX() {
+                        top = 44.0
+                    }
+                    make.edges.equalTo(controlBg).inset(UIEdgeInsets(top: top, left: 0, bottom: 0, right: 0))
                 }
             }
         }
@@ -70,18 +89,28 @@ class VideoController: UIViewController, VLCMediaPlayerDelegate {
         playView.backgroundColor = .black
         view.addSubview(playView)
         playView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.view.snp.top).offset(0)
-            make.left.equalTo(self.view.snp.left).offset(0)
-            make.right.equalTo(self.view.snp.right).offset(0)
+            make.top.equalTo(view.snp.top).offset(0)
+            make.left.equalTo(view.snp.left).offset(0)
+            make.right.equalTo(view.snp.right).offset(0)
             make.height.equalTo(playView.snp.width).multipliedBy(9.0/16.0).priority(750)
         }
         
-        view.addSubview(control)
+        controlBg.backgroundColor = .clear
+        view.addSubview(controlBg)
+        controlBg.snp.makeConstraints { (make) in
+            make.top.equalTo(view.snp.top).offset(0)
+            make.left.equalTo(view.snp.left).offset(0)
+            make.right.equalTo(view.snp.right).offset(0)
+            make.height.equalTo(controlBg.snp.width).multipliedBy(9.0/16.0).priority(750)
+        }
+        
+        controlBg.addSubview(control)
         control.snp.makeConstraints { (make) in
-            make.top.equalTo(self.view.snp.top).offset(0)
-            make.left.equalTo(self.view.snp.left).offset(0)
-            make.right.equalTo(self.view.snp.right).offset(0)
-            make.height.equalTo(playView.snp.width).multipliedBy(9.0/16.0).priority(750)
+            var top: CGFloat = 0
+            if Consts.iPhoneX() {
+                top = 44.0
+            }
+            make.edges.equalTo(controlBg).inset(UIEdgeInsets(top: top, left: 0, bottom: 0, right: 0))
         }
         
         let urlString = (Consts.rootUrl() + file.playPath).addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
