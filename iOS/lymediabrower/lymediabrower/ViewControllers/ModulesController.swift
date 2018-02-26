@@ -75,7 +75,6 @@ class ModulesController: UIViewController, UICollectionViewDelegate, UICollectio
             for item in modules {
                 let oneFile = FileModel()
                 oneFile.setValuesForKeys(item)
-                oneFile.imageIndex = -1
                 self?.modules.append(oneFile)
             }
             

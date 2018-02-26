@@ -38,7 +38,7 @@ class FileCell: UITableViewCell {
         }
     }
     
-    @IBOutlet fileprivate weak var icon: UIImageView!
+    @IBOutlet weak var icon: UIImageView!
     @IBOutlet fileprivate weak var title: UILabel!
     @IBOutlet fileprivate weak var arrow: UIImageView!
 

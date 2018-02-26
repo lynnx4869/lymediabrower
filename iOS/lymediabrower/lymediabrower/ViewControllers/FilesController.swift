@@ -9,16 +9,16 @@
 import UIKit
 import SnapKit
 import MJRefresh
-import MWPhotoBrowser
+import JXPhotoBrowser
 
-class FilesController: UIViewController, UITableViewDelegate, UITableViewDataSource, MWPhotoBrowserDelegate {
+class FilesController: UIViewController, UITableViewDelegate, UITableViewDataSource, PhotoBrowserDelegate {
     
     var file: FileModel!
     var modulePath: String!
     
     fileprivate var tableView: UITableView!
     fileprivate var files = [FileModel]()
-    fileprivate var images = [MWPhoto]()
+    fileprivate var images = [FileModel]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,8 +27,6 @@ class FilesController: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         view.backgroundColor = .white
         navigationItem.title = file.itemName
-        
-        
         
         tableView = UITableView(frame: .zero, style: .plain)
         tableView.delegate = self
@@ -70,13 +68,7 @@ class FilesController: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self?.files.append(oneFile)
                     
                     if oneFile.type == "image" {
-                        let urlString = (Consts.rootUrl() + oneFile.playPath).addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-                        let image = MWPhoto(url: URL(string: urlString))
-                        self?.images.append(image!)
-                        
-                        oneFile.imageIndex = (self?.images.count)! - 1
-                    } else {
-                        oneFile.imageIndex = -1
+                        self?.images.append(oneFile)
                     }
                 }
                 
@@ -116,26 +108,13 @@ class FilesController: UIViewController, UITableViewDelegate, UITableViewDataSou
             fc.modulePath = modulePath
             navigationController?.pushViewController(fc, animated: true)
         } else if item.type == "image" {
-            let browser = MWPhotoBrowser(delegate: self)
+            let browser = PhotoBrowser(showByViewController: self, delegate: self)
             
-            // Set options
-            browser?.displayActionButton = false
-            browser?.displayNavArrows = false
-            browser?.displaySelectionButtons = false
-            browser?.zoomPhotosToFill = false
-            browser?.alwaysShowControls = false
-            browser?.enableGrid = false
-            browser?.startOnGrid = false
-            browser?.autoPlayOnAppear = false
-
-            browser?.showNextPhoto(animated: true)
-            browser?.showPreviousPhoto(animated: true)
-            
-            if item.imageIndex != -1 {
-                browser?.setCurrentPhotoIndex(UInt(item.imageIndex))
+            if let index = images.index(of: item) {
+                browser.show(index: index)
+            } else {
+                browser.show(index: 0)
             }
-            
-            navigationController?.pushViewController(browser!, animated: true)
         } else if item.type == "video" {
             let vc = VideoController()
             vc.file = item
@@ -147,13 +126,28 @@ class FilesController: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     
-    //MARK: - MWPhotoBrowserDelegate
-    func numberOfPhotos(in photoBrowser: MWPhotoBrowser!) -> UInt {
-        return UInt(images.count)
+    //MARK: - PhotoBrowserDelegate
+    func numberOfPhotos(in photoBrowser: PhotoBrowser) -> Int {
+        return images.count
     }
     
-    func photoBrowser(_ photoBrowser: MWPhotoBrowser!, photoAt index: UInt) -> MWPhotoProtocol! {
-        return images[Int(index)]
+    func photoBrowser(_ photoBrowser: PhotoBrowser, thumbnailViewForIndex index: Int) -> UIView? {
+        let row = files.index(of: images[index])!
+        return tableView.cellForRow(at: IndexPath(row: row, section: 0))
+    }
+    
+    func photoBrowser(_ photoBrowser: PhotoBrowser, thumbnailImageForIndex index: Int) -> UIImage? {
+        let row = files.index(of: images[index])!
+        let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0)) as? FileCell
+        return cell?.icon.image
+    }
+    
+    func photoBrowser(_ photoBrowser: PhotoBrowser, highQualityUrlForIndex index: Int) -> URL? {
+        let item = images[index]
+        if let url = (Consts.rootUrl() + item.playPath).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+            return URL(string: url)
+        }
+        return nil
     }
     
 }

@@ -12,6 +12,6 @@ target 'lymediabrower' do
   pod 'Kingfisher'
   pod 'LYAutoUtils'  
   pod 'MJRefresh'
-  pod 'MWPhotoBrowser'
+  pod 'JXPhotoBrowser'
 
 end

@@ -57,10 +57,7 @@ class VideoController: UIViewController, VLCMediaPlayerDelegate {
                 }
                 
                 control.snp.remakeConstraints { (make) in
-                    var top: CGFloat = 0
-                    if Consts.iPhoneX() {
-                        top = 44.0
-                    }
+                    let top = UIApplication.shared.statusBarFrame.height
                     make.edges.equalTo(controlBg).inset(UIEdgeInsets(top: top, left: 0, bottom: 0, right: 0))
                 }
             }
@@ -106,10 +103,7 @@ class VideoController: UIViewController, VLCMediaPlayerDelegate {
         
         controlBg.addSubview(control)
         control.snp.makeConstraints { (make) in
-            var top: CGFloat = 0
-            if Consts.iPhoneX() {
-                top = 44.0
-            }
+            let top = UIApplication.shared.statusBarFrame.height
             make.edges.equalTo(controlBg).inset(UIEdgeInsets(top: top, left: 0, bottom: 0, right: 0))
         }
         
@@ -180,6 +174,12 @@ class VideoController: UIViewController, VLCMediaPlayerDelegate {
                                                selector: #selector(orientationHandler(_:)),
                                                name: Notification.Name.UIDeviceOrientationDidChange,
                                                object: nil)
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        get {
+            return UIStatusBarStyle.lightContent
+        }
     }
     
     //MARK: - Views

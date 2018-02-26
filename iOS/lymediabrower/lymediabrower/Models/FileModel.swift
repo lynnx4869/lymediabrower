@@ -14,9 +14,7 @@ class FileModel: NSObject {
     @objc var itemPath: String!
     @objc var playPath: String!
     @objc var type: String!
-    
-    var imageIndex: Int!
-    
+        
     override func setValue(_ value: Any?, forUndefinedKey key: String) {
         debugPrint(key)
     }

@@ -1,47 +1,37 @@
 PODS:
   - Alamofire (4.6.0)
-  - DACircularProgress (2.3.1)
+  - JXPhotoBrowser (0.4.3):
+    - Kingfisher
   - Kingfisher (4.6.1)
   - LYAutoUtils (0.2.3):
     - pop (~> 1.0)
     - SSZipArchive
-  - MBProgressHUD (0.9.2)
   - MJRefresh (3.1.15.3)
-  - MWPhotoBrowser (2.1.2):
-    - DACircularProgress (~> 2.3)
-    - MBProgressHUD (~> 0.9)
-    - SDWebImage (!= 3.7.2, ~> 3.7)
   - pop (1.0.10)
-  - SDWebImage (3.8.2):
-    - SDWebImage/Core (= 3.8.2)
-  - SDWebImage/Core (3.8.2)
   - SnapKit (4.0.0)
   - SSZipArchive (2.1.1)
   - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
   - Alamofire
+  - JXPhotoBrowser
   - Kingfisher
   - LYAutoUtils
   - MJRefresh
-  - MWPhotoBrowser
   - SnapKit
   - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
-  DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
+  JXPhotoBrowser: 9a195ac47268f7bd95a728eb0fee5d1d0e9deb46
   Kingfisher: 1f9157d9c02b380cbd0b7cc890161195164eb634
   LYAutoUtils: 649acdf650e1c270c53dc209cc21efb36ba2a834
-  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
-  MWPhotoBrowser: 5836d7aa041dc05a13de380c246826578adc5ea5
   pop: 82ca6b068ce9278fd350fd9dd09482a0ce9492e6
-  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SSZipArchive: 14401ade5f8e82aba1ff03e9f88e9de60937ae60
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: 17775bc24219f927cd659e15470c1902148e46c4
+PODFILE CHECKSUM: 0b7e3da8328d42225bf129f921bad39b7a503de0
 
 COCOAPODS: 1.4.0

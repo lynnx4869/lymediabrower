@@ -32,6 +32,11 @@ const modules = [{
     itemPath: path.join('G:/影视'),
     playPath: '',
     type: 'module'
+}, {
+    itemName: '这种邪恶的东西，不足为外人道也',
+    itemPath: path.join('/Volumes/月夜胜邪/这种邪恶的东西，不足为外人道也'),
+    playPath: '',
+    type: 'module'
 }];
 
 module.exports = modules;
