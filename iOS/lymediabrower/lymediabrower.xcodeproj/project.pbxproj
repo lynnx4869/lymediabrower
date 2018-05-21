@@ -19,7 +19,6 @@
 		8B07FF011FBC3CB7007D299A /* FileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B07FF001FBC3CB7007D299A /* FileModel.swift */; };
 		8B2C67E51FEB9F7D00072055 /* LYExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2C67E41FEB9F7D00072055 /* LYExtensions.swift */; };
 		8B4096F71FBED24E00777F4B /* TxtController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4096F61FBED24E00777F4B /* TxtController.swift */; };
-		8B664D9C20196E9D00ABC107 /* MobileVLCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B664D9B20196E9D00ABC107 /* MobileVLCKit.framework */; };
 		8B99AB701FBD493900873984 /* libbz2.1.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B99AB6F1FBD493900873984 /* libbz2.1.0.tbd */; };
 		8B99AB721FBD494300873984 /* libz.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B99AB711FBD494300873984 /* libz.1.tbd */; };
 		8B99AB741FBD495000873984 /* libc++.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B99AB731FBD495000873984 /* libc++.1.tbd */; };
@@ -36,6 +35,12 @@
 		8B99AB911FBD589100873984 /* VideoControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B99AB901FBD589100873984 /* VideoControl.swift */; };
 		8BB1755F1FBC22F800502C2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1755E1FBC22F800502C2D /* AppDelegate.swift */; };
 		8BB175661FBC22F800502C2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BB175651FBC22F800502C2D /* Assets.xcassets */; };
+		8BD7C65620B2A6680019217F /* IJKMediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BD7C65520B2A6680019217F /* IJKMediaFramework.framework */; };
+		8BD7C65820B2A6790019217F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BD7C65720B2A6790019217F /* CoreGraphics.framework */; };
+		8BD7C65A20B2A6850019217F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BD7C65920B2A6850019217F /* MobileCoreServices.framework */; };
+		8BD7C65C20B2A6900019217F /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BD7C65B20B2A6900019217F /* OpenGLES.framework */; };
+		8BD7C65E20B2A69C0019217F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BD7C65D20B2A69C0019217F /* QuartzCore.framework */; };
+		8BD7C66020B2A6A60019217F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BD7C65F20B2A6A50019217F /* UIKit.framework */; };
 		8BE7BAFC1FDA4C9F004621D3 /* ModulesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE7BAFB1FDA4C9F004621D3 /* ModulesController.swift */; };
 		8BE7BAFF1FDA5B04004621D3 /* ModuleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE7BAFD1FDA5B04004621D3 /* ModuleCell.swift */; };
 		8BE7BB001FDA5B04004621D3 /* ModuleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BE7BAFE1FDA5B04004621D3 /* ModuleCell.xib */; };
@@ -56,7 +61,6 @@
 		8B07FF001FBC3CB7007D299A /* FileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileModel.swift; sourceTree = "<group>"; };
 		8B2C67E41FEB9F7D00072055 /* LYExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LYExtensions.swift; sourceTree = "<group>"; };
 		8B4096F61FBED24E00777F4B /* TxtController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxtController.swift; sourceTree = "<group>"; };
-		8B664D9B20196E9D00ABC107 /* MobileVLCKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileVLCKit.framework; path = "../../../../libs-git/MobileVLCKit.framework"; sourceTree = "<group>"; };
 		8B99AB6F1FBD493900873984 /* libbz2.1.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.1.0.tbd; path = usr/lib/libbz2.1.0.tbd; sourceTree = SDKROOT; };
 		8B99AB711FBD494300873984 /* libz.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.tbd; path = usr/lib/libz.1.tbd; sourceTree = SDKROOT; };
 		8B99AB731FBD495000873984 /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "usr/lib/libc++.1.tbd"; sourceTree = SDKROOT; };
@@ -76,6 +80,12 @@
 		8BB1755E1FBC22F800502C2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BB175651FBC22F800502C2D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8BB1756A1FBC22F800502C2D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8BD7C65520B2A6680019217F /* IJKMediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IJKMediaFramework.framework; path = "../../../../../libs-git/IJKMediaFramework.framework"; sourceTree = "<group>"; };
+		8BD7C65720B2A6790019217F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		8BD7C65920B2A6850019217F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		8BD7C65B20B2A6900019217F /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		8BD7C65D20B2A69C0019217F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		8BD7C65F20B2A6A50019217F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8BE7BAFB1FDA4C9F004621D3 /* ModulesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulesController.swift; sourceTree = "<group>"; };
 		8BE7BAFD1FDA5B04004621D3 /* ModuleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleCell.swift; sourceTree = "<group>"; };
 		8BE7BAFE1FDA5B04004621D3 /* ModuleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ModuleCell.xib; sourceTree = "<group>"; };
@@ -86,7 +96,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B664D9C20196E9D00ABC107 /* MobileVLCKit.framework in Frameworks */,
+				8BD7C66020B2A6A60019217F /* UIKit.framework in Frameworks */,
+				8BD7C65E20B2A69C0019217F /* QuartzCore.framework in Frameworks */,
+				8BD7C65C20B2A6900019217F /* OpenGLES.framework in Frameworks */,
+				8BD7C65A20B2A6850019217F /* MobileCoreServices.framework in Frameworks */,
+				8BD7C65820B2A6790019217F /* CoreGraphics.framework in Frameworks */,
 				8B99AB861FBD49E300873984 /* AudioToolbox.framework in Frameworks */,
 				8B99AB841FBD49D400873984 /* VideoToolbox.framework in Frameworks */,
 				8B99AB821FBD49BF00873984 /* CoreMedia.framework in Frameworks */,
@@ -100,6 +114,7 @@
 				6765BA741DD087CF34798B7A /* Pods_lymediabrower.framework in Frameworks */,
 				8B99AB781FBD496900873984 /* libstdc++.6.0.9.tbd in Frameworks */,
 				8B99AB741FBD495000873984 /* libc++.1.tbd in Frameworks */,
+				8BD7C65620B2A6680019217F /* IJKMediaFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,7 +124,11 @@
 		4C1955015F6D94410D8A193F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8B664D9B20196E9D00ABC107 /* MobileVLCKit.framework */,
+				8BD7C65F20B2A6A50019217F /* UIKit.framework */,
+				8BD7C65D20B2A69C0019217F /* QuartzCore.framework */,
+				8BD7C65B20B2A6900019217F /* OpenGLES.framework */,
+				8BD7C65920B2A6850019217F /* MobileCoreServices.framework */,
+				8BD7C65720B2A6790019217F /* CoreGraphics.framework */,
 				8B99AB851FBD49E000873984 /* AudioToolbox.framework */,
 				8B99AB831FBD49CE00873984 /* VideoToolbox.framework */,
 				8B99AB811FBD49B900873984 /* CoreMedia.framework */,
@@ -185,6 +204,7 @@
 		8BB1755D1FBC22F800502C2D /* lymediabrower */ = {
 			isa = PBXGroup;
 			children = (
+				8BD7C65520B2A6680019217F /* IJKMediaFramework.framework */,
 				8B07FEEE1FBC2E05007D299A /* ViewControllers */,
 				8B07FEFF1FBC3C7B007D299A /* Models */,
 				8B07FEED1FBC2DF8007D299A /* Utils */,
@@ -235,7 +255,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0910;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = czcg;
 				TargetAttributes = {
 					8BB1755A1FBC22F800502C2D = {
@@ -386,6 +406,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -393,6 +414,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -443,6 +465,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -450,6 +473,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -532,6 +556,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 28B5J4N7T8;
 				ENABLE_BITCODE = NO;
@@ -560,8 +585,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.czcg.lymediabrower;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e323d557-b6ba-4bd1-9e66-844716e9dd6e";
-				PROVISIONING_PROFILE_SPECIFIER = CaiTuoGeneralCertificate_Dev;
+				PROVISIONING_PROFILE = "0fd69640-165d-42d9-8545-90d69f72d960";
+				PROVISIONING_PROFILE_SPECIFIER = CaiTuoGeneralCertificate_Pro;
 				SWIFT_OBJC_BRIDGING_HEADER = "lymediabrower/lymediabrower-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;

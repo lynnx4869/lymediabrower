@@ -37,6 +37,11 @@ const modules = [{
     itemPath: path.join('/Volumes/月夜胜邪/这种邪恶的东西，不足为外人道也'),
     playPath: '',
     type: 'module'
+}, {
+    itemName: 'Downloads',
+    itemPath: path.join('/Users/xianing/Downloads'),
+    playPath: '',
+    type: 'module'
 }];
 
 module.exports = modules;
