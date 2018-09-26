@@ -12,7 +12,7 @@ import LYAutoUtils
 struct Consts {
     
     /// 主题色
-    static let MainColor = UIColor.color(hex: 0x887ddd)
+    static let MainColor = 0x887ddd.color()
     
     /// 网络根路径
     static func rootUrl() -> String {

@@ -18,12 +18,11 @@
 		8B07FEFE1FBC3907007D299A /* HttpUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B07FEFD1FBC3907007D299A /* HttpUtil.swift */; };
 		8B07FF011FBC3CB7007D299A /* FileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B07FF001FBC3CB7007D299A /* FileModel.swift */; };
 		8B2C67E51FEB9F7D00072055 /* LYExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2C67E41FEB9F7D00072055 /* LYExtensions.swift */; };
-		8B4096F71FBED24E00777F4B /* TxtController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4096F61FBED24E00777F4B /* TxtController.swift */; };
+		8B9213D4214F50E500053660 /* DocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9213D3214F50E500053660 /* DocumentController.swift */; };
 		8B99AB701FBD493900873984 /* libbz2.1.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B99AB6F1FBD493900873984 /* libbz2.1.0.tbd */; };
 		8B99AB721FBD494300873984 /* libz.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B99AB711FBD494300873984 /* libz.1.tbd */; };
 		8B99AB741FBD495000873984 /* libc++.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B99AB731FBD495000873984 /* libc++.1.tbd */; };
 		8B99AB761FBD495D00873984 /* libiconv.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B99AB751FBD495D00873984 /* libiconv.2.tbd */; };
-		8B99AB781FBD496900873984 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B99AB771FBD496900873984 /* libstdc++.6.0.9.tbd */; };
 		8B99AB7A1FBD497D00873984 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B99AB791FBD497300873984 /* MediaPlayer.framework */; };
 		8B99AB7C1FBD498E00873984 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B99AB7B1FBD498700873984 /* AVFoundation.framework */; };
 		8B99AB7E1FBD49A000873984 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B99AB7D1FBD499A00873984 /* CoreVideo.framework */; };
@@ -60,7 +59,7 @@
 		8B07FEFD1FBC3907007D299A /* HttpUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpUtil.swift; sourceTree = "<group>"; };
 		8B07FF001FBC3CB7007D299A /* FileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileModel.swift; sourceTree = "<group>"; };
 		8B2C67E41FEB9F7D00072055 /* LYExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LYExtensions.swift; sourceTree = "<group>"; };
-		8B4096F61FBED24E00777F4B /* TxtController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxtController.swift; sourceTree = "<group>"; };
+		8B9213D3214F50E500053660 /* DocumentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentController.swift; sourceTree = "<group>"; };
 		8B99AB6F1FBD493900873984 /* libbz2.1.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.1.0.tbd; path = usr/lib/libbz2.1.0.tbd; sourceTree = SDKROOT; };
 		8B99AB711FBD494300873984 /* libz.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.tbd; path = usr/lib/libz.1.tbd; sourceTree = SDKROOT; };
 		8B99AB731FBD495000873984 /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "usr/lib/libc++.1.tbd"; sourceTree = SDKROOT; };
@@ -112,7 +111,6 @@
 				8B99AB701FBD493900873984 /* libbz2.1.0.tbd in Frameworks */,
 				8B99AB721FBD494300873984 /* libz.1.tbd in Frameworks */,
 				6765BA741DD087CF34798B7A /* Pods_lymediabrower.framework in Frameworks */,
-				8B99AB781FBD496900873984 /* libstdc++.6.0.9.tbd in Frameworks */,
 				8B99AB741FBD495000873984 /* libc++.1.tbd in Frameworks */,
 				8BD7C65620B2A6680019217F /* IJKMediaFramework.framework in Frameworks */,
 			);
@@ -170,7 +168,7 @@
 				8B07FEFA1FBC3659007D299A /* FileCell.xib */,
 				8B99AB8E1FBD583A00873984 /* VideoController.swift */,
 				8B99AB901FBD589100873984 /* VideoControl.swift */,
-				8B4096F61FBED24E00777F4B /* TxtController.swift */,
+				8B9213D3214F50E500053660 /* DocumentController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -236,8 +234,7 @@
 				8BB175571FBC22F800502C2D /* Sources */,
 				8BB175581FBC22F800502C2D /* Frameworks */,
 				8BB175591FBC22F800502C2D /* Resources */,
-				E9233A16EEFBD3FFD8E271B1 /* [CP] Embed Pods Frameworks */,
-				A889C622983AA6ECE1E5D9AD /* [CP] Copy Pods Resources */,
+				15CCB61FAB443AE34759F0F7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -260,7 +257,7 @@
 				TargetAttributes = {
 					8BB1755A1FBC22F800502C2D = {
 						CreatedOnToolsVersion = 9.1;
-						LastSwiftMigration = 0910;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -316,22 +313,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A889C622983AA6ECE1E5D9AD /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-lymediabrower/Pods-lymediabrower-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E9233A16EEFBD3FFD8E271B1 /* [CP] Embed Pods Frameworks */ = {
+		15CCB61FAB443AE34759F0F7 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -343,9 +325,11 @@
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/LYAutoUtils/LYAutoUtils.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
-				"${BUILT_PRODUCTS_DIR}/SSZipArchive/SSZipArchive.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/Zip/Zip.framework",
 				"${BUILT_PRODUCTS_DIR}/pop/pop.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -355,9 +339,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LYAutoUtils.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SSZipArchive.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zip.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/pop.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -380,11 +366,11 @@
 				8BE7BAFF1FDA5B04004621D3 /* ModuleCell.swift in Sources */,
 				8B07FEFE1FBC3907007D299A /* HttpUtil.swift in Sources */,
 				8B07FEFB1FBC3659007D299A /* FileCell.swift in Sources */,
+				8B9213D4214F50E500053660 /* DocumentController.swift in Sources */,
 				8B07FEF71FBC3009007D299A /* RootUrlController.swift in Sources */,
 				8B07FEF01FBC2E15007D299A /* FilesController.swift in Sources */,
 				8B2C67E51FEB9F7D00072055 /* LYExtensions.swift in Sources */,
 				8B99AB911FBD589100873984 /* VideoControl.swift in Sources */,
-				8B4096F71FBED24E00777F4B /* TxtController.swift in Sources */,
 				8BE7BAFC1FDA4C9F004621D3 /* ModulesController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -442,7 +428,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -495,7 +481,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -543,7 +529,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = CaiTuoGeneralCertificate_Dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "lymediabrower/lymediabrower-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -588,7 +574,7 @@
 				PROVISIONING_PROFILE = "0fd69640-165d-42d9-8545-90d69f72d960";
 				PROVISIONING_PROFILE_SPECIFIER = CaiTuoGeneralCertificate_Pro;
 				SWIFT_OBJC_BRIDGING_HEADER = "lymediabrower/lymediabrower-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

@@ -171,7 +171,7 @@ class VideoController: UIViewController {
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(orientationHandler(_:)),
-                                               name: Notification.Name.UIDeviceOrientationDidChange,
+                                               name: UIDevice.orientationDidChangeNotification,
                                                object: nil)
         
         NotificationCenter.default.addObserver(self,
@@ -340,7 +340,7 @@ class VideoController: UIViewController {
     
     //MARK: - Notifications
     @objc fileprivate func orientationHandler(_ noti: Notification) {
-        if UIDeviceOrientationIsLandscape(UIDevice.current.orientation) {
+        if UIDevice.current.orientation.isLandscape {
             isFullscreenModel = true
         } else {
             isFullscreenModel = false

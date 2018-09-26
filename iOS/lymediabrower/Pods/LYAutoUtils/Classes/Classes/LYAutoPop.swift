@@ -17,7 +17,7 @@ public enum LYAutoPopType: Int {
 
 open class LYAutoPop {
     
-    static open func show(message: String, type: LYAutoPopType, duration: TimeInterval) {
+    public static func show(message: String, type: LYAutoPopType, duration: TimeInterval) {
         let y = UIApplication.shared.statusBarFrame.height + 44
         let autoPopView = LYAutoPopView(frame: CGRect(x: 0, y: y, width: LyConsts.ScreenWidth, height: 30), message: message, type: type)
         UIApplication.shared.keyWindow?.addSubview(autoPopView)
@@ -67,10 +67,10 @@ fileprivate class LYAutoPopView: UIView {
         messageLabel.text = message
         
         if type == .success {
-            backgroundColor = UIColor.color(hex: 0x16A085)
+            backgroundColor = 0x16a085.color()
             leftIcon.image = UIImage(named: "ly_message_ok", in: Bundle(for: LYAutoUtils.self), compatibleWith: nil)
         } else {
-            backgroundColor = UIColor.color(hex: 0xD9544F)
+            backgroundColor = 0xd9544f.color()
             leftIcon.image = UIImage(named: "ly_message_warning", in: Bundle(for: LYAutoUtils.self), compatibleWith: nil)
         }
     }

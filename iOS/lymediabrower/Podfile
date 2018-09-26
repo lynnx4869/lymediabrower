@@ -10,8 +10,11 @@ target 'lymediabrower' do
   pod 'SnapKit'
   pod 'SwiftyJSON'
   pod 'Kingfisher'
-  pod 'LYAutoUtils'  
+  pod 'LYAutoUtils'
   pod 'MJRefresh'
   pod 'JXPhotoBrowser'
+  pod 'RxSwift'
+  pod 'RxCocoa'
+  pod 'AppCenter'
 
 end

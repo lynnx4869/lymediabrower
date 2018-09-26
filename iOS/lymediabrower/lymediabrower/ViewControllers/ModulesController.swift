@@ -10,9 +10,12 @@ import UIKit
 import SnapKit
 import MJRefresh
 import LYAutoUtils
+import RxSwift
 
 class ModulesController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
+    fileprivate let disposeBag = DisposeBag()
+
     fileprivate var collectionView: UICollectionView!
     fileprivate var modules = [FileModel]()
 
@@ -40,7 +43,7 @@ class ModulesController: UIViewController, UICollectionViewDelegate, UICollectio
         collectionView.backgroundColor = .white
         collectionView.register(UINib(nibName: "ModuleCell", bundle: Bundle.main), forCellWithReuseIdentifier: "ModuleCellId")
         view.addSubview(collectionView)
-        
+                
         collectionView.snp.makeConstraints { (make) in
             make.edges.equalTo(self.view).inset(UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
         }
@@ -63,27 +66,14 @@ class ModulesController: UIViewController, UICollectionViewDelegate, UICollectio
     }
     
     @objc fileprivate func onLoadData() {
-        HttpUtil.request(url: "/modules",
-                         parameters: nil,
-                         success:
-        { [weak self] (data) in
-            let dic = data as! [String: Any]
-            let modules = dic["modules"] as! [[String: String]]
-            
-            self?.modules.removeAll()
-            
-            for item in modules {
-                let oneFile = FileModel()
-                oneFile.setValuesForKeys(item)
-                self?.modules.append(oneFile)
-            }
+        Api.modules().subscribe(onNext: { [weak self] modules in
+            self?.modules = modules
             
             self?.collectionView.mj_header.endRefreshing()
             self?.collectionView.reloadData()
-        })
-        { [weak self] (error) in
+        }, onError: { [weak self] error in
             self?.collectionView.mj_header.endRefreshing()
-        }
+        }).disposed(by: disposeBag)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

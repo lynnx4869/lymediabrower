@@ -8,10 +8,13 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 import MJRefresh
 import JXPhotoBrowser
 
-class FilesController: UIViewController, UITableViewDelegate, UITableViewDataSource, PhotoBrowserDelegate {
+class FilesController: UIViewController {
+    
+    fileprivate let disposeBag = DisposeBag()
     
     var file: FileModel!
     var modulePath: String!
@@ -53,32 +56,27 @@ class FilesController: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @objc fileprivate func onLoadData() {
-        HttpUtil.request(url: "/files",
-                         parameters: ["fileroot": file.itemPath, "modulePath": modulePath],
-                         success:
-            { [weak self] (data) in
-                let dic = data as! [String: Any]
-                let fileList = dic["fileList"] as! [[String: String]]
-                
-                self?.files.removeAll()
-                
-                for item in fileList {
-                    let oneFile = FileModel()
-                    oneFile.setValuesForKeys(item)
-                    self?.files.append(oneFile)
-                    
-                    if oneFile.type == "image" {
-                        self?.images.append(oneFile)
-                    }
+        Api.files(file.itemPath, modulePath).subscribe(onNext: { [weak self] files in
+            self?.files = files
+            
+            self?.images.removeAll()
+            for file in files {
+                if file.type == "image" {
+                    self?.images.append(file)
                 }
-                
-                self?.tableView.mj_header.endRefreshing()
-                self?.tableView.reloadData()
-        }) { [weak self] (error) in
+            }
+            
             self?.tableView.mj_header.endRefreshing()
-        }
+            self?.tableView.reloadData()
+        }, onError: { [weak self] error in
+            self?.tableView.mj_header.endRefreshing()
+        }).disposed(by: disposeBag)
     }
+    
+}
 
+extension FilesController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return files.count
     }
@@ -108,43 +106,68 @@ class FilesController: UIViewController, UITableViewDelegate, UITableViewDataSou
             fc.modulePath = modulePath
             navigationController?.pushViewController(fc, animated: true)
         } else if item.type == "image" {
-            let browser = PhotoBrowser(showByViewController: self, delegate: self)
-            
+            let browser = PhotoBrowser()
+            browser.animationType = .scale
+            browser.photoBrowserDelegate = self
+            browser.plugins.append(NumberPageControlPlugin())
             if let index = images.index(of: item) {
-                browser.show(index: index)
+                browser.originPageIndex = index
             } else {
-                browser.show(index: 0)
+                browser.originPageIndex = 0
             }
+            present(browser, animated: true, completion: nil)
         } else if item.type == "video" {
             let vc = VideoController()
             vc.file = item
             navigationController?.pushViewController(vc, animated: true)
+        } else if item.type == "document" {
+            let dc = DocumentController()
+            dc.file = item
+            navigationController?.pushViewController(dc, animated: true)
         } else if item.type == "txt" {
-            let tc = TxtController()
-            tc.file = item
-            navigationController?.pushViewController(tc, animated: true)
+            DispatchQueue.global().async {
+                let pageVc = LYAutoReadPageController()
+                if let fileURL = Bundle.main.url(forResource: "tw", withExtension: "txt"),
+                    let model = LYAutoReadModel.getLocalModel(fileUrl: fileURL) {
+                    
+                    pageVc.resourceURL = fileURL
+                    pageVc.model = model
+                    
+                    DispatchQueue.main.async {
+                        self.present(pageVc, animated: true, completion: nil)
+                    }
+                }
+            }
         }
     }
     
-    //MARK: - PhotoBrowserDelegate
+}
+
+extension FilesController: PhotoBrowserDelegate {
+    
     func numberOfPhotos(in photoBrowser: PhotoBrowser) -> Int {
         return images.count
     }
     
     func photoBrowser(_ photoBrowser: PhotoBrowser, thumbnailViewForIndex index: Int) -> UIView? {
-        let row = files.index(of: images[index])!
-        return tableView.cellForRow(at: IndexPath(row: row, section: 0))
+        if let row = files.index(of: images[index]) {
+            return tableView.cellForRow(at: IndexPath(row: row, section: 0))
+        }
+        return nil
     }
-    
+
     func photoBrowser(_ photoBrowser: PhotoBrowser, thumbnailImageForIndex index: Int) -> UIImage? {
-        let row = files.index(of: images[index])!
-        let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0)) as? FileCell
-        return cell?.icon.image
+        if let row = files.index(of: images[index]),
+            let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0)) as? FileCell {
+            return cell.icon.image
+        }
+        return nil
     }
     
     func photoBrowser(_ photoBrowser: PhotoBrowser, highQualityUrlForIndex index: Int) -> URL? {
         let item = images[index]
-        if let url = (Consts.rootUrl() + item.playPath).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+        if let url = (Consts.rootUrl() + item.playPath)
+            .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
             return URL(string: url)
         }
         return nil
