@@ -106,16 +106,25 @@ extension FilesController: UITableViewDelegate, UITableViewDataSource {
             fc.modulePath = modulePath
             navigationController?.pushViewController(fc, animated: true)
         } else if item.type == "image" {
-            let browser = PhotoBrowser()
-            browser.animationType = .scale
-            browser.photoBrowserDelegate = self
-            browser.plugins.append(NumberPageControlPlugin())
-            if let index = images.index(of: item) {
-                browser.originPageIndex = index
-            } else {
-                browser.originPageIndex = 0
+            var index = 0
+            if let i = images.index(of: item) {
+                index = i
             }
-            present(browser, animated: true, completion: nil)
+            
+            let loader = JXKingfisherLoader()
+            let dataSource = JXNetworkingDataSource(photoLoader: loader, numberOfItems: { () -> Int in
+                return self.images.count
+            }, placeholder: { index -> UIImage? in
+                return Consts.getDefaultImage()
+            }) { index -> String? in
+                let item = self.images[index]
+                return (Consts.rootUrl() + item.playPath)
+                    .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            }
+            let delegate = JXNumberPageControlDelegate()
+            
+            let browser = JXPhotoBrowser(dataSource: dataSource, delegate: delegate)
+            browser.show(pageIndex: index)
         } else if item.type == "video" {
             let vc = VideoController()
             vc.file = item
@@ -125,52 +134,20 @@ extension FilesController: UITableViewDelegate, UITableViewDataSource {
             dc.file = item
             navigationController?.pushViewController(dc, animated: true)
         } else if item.type == "txt" {
-            DispatchQueue.global().async {
-                let pageVc = LYAutoReadPageController()
-                if let fileURL = Bundle.main.url(forResource: "tw", withExtension: "txt"),
-                    let model = LYAutoReadModel.getLocalModel(fileUrl: fileURL) {
-                    
-                    pageVc.resourceURL = fileURL
-                    pageVc.model = model
-                    
-                    DispatchQueue.main.async {
-                        self.present(pageVc, animated: true, completion: nil)
-                    }
-                }
-            }
+//            DispatchQueue.global().async {
+//                let pageVc = LYAutoReadPageController()
+//                if let fileURL = Bundle.main.url(forResource: "tw", withExtension: "txt"),
+//                    let model = LYAutoReadModel.getLocalModel(fileUrl: fileURL) {
+//
+//                    pageVc.resourceURL = fileURL
+//                    pageVc.model = model
+//
+//                    DispatchQueue.main.async {
+//                        self.present(pageVc, animated: true, completion: nil)
+//                    }
+//                }
+//            }
         }
-    }
-    
-}
-
-extension FilesController: PhotoBrowserDelegate {
-    
-    func numberOfPhotos(in photoBrowser: PhotoBrowser) -> Int {
-        return images.count
-    }
-    
-    func photoBrowser(_ photoBrowser: PhotoBrowser, thumbnailViewForIndex index: Int) -> UIView? {
-        if let row = files.index(of: images[index]) {
-            return tableView.cellForRow(at: IndexPath(row: row, section: 0))
-        }
-        return nil
-    }
-
-    func photoBrowser(_ photoBrowser: PhotoBrowser, thumbnailImageForIndex index: Int) -> UIImage? {
-        if let row = files.index(of: images[index]),
-            let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0)) as? FileCell {
-            return cell.icon.image
-        }
-        return nil
-    }
-    
-    func photoBrowser(_ photoBrowser: PhotoBrowser, highQualityUrlForIndex index: Int) -> URL? {
-        let item = images[index]
-        if let url = (Consts.rootUrl() + item.playPath)
-            .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
-            return URL(string: url)
-        }
-        return nil
     }
     
 }
