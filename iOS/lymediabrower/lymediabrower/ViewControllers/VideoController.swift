@@ -259,7 +259,7 @@ class VideoController: UIViewController {
         if _volumeSlider == nil {
             for view in volumeView.subviews {
                 if (view.superclass?.isSubclass(of: UISlider.classForCoder()))! {
-                    _volumeSlider = view as! UISlider
+                    _volumeSlider = view as? UISlider
                 }
             }
         }

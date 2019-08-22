@@ -42,8 +42,8 @@ open class JXPhotoBrowser: UIViewController {
     open var isPreviewing = false
     
     /// 流型布局
-    open lazy var flowLayout: UICollectionViewFlowLayout = {
-        let layout = UICollectionViewFlowLayout()
+    open lazy var flowLayout: JXCollectionViewFlowLayout = {
+        let layout = JXCollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         return layout
     }()
@@ -113,15 +113,16 @@ open class JXPhotoBrowser: UIViewController {
         collectionView.delegate = delegate
         collectionView.dataSource = dataSource
         dataSource.registerCell(for: collectionView)
-        
-        layout()
+        let index = pageIndex
+        setLayout()
         collectionView.reloadData()
-        scrollToItem(pageIndex, at: .left, animated: false)
+        collectionView.layoutIfNeeded()
+        self.scrollToItem(index, at: .left, animated: false)
         collectionView.layoutIfNeeded()
         delegate.photoBrowserViewDidLoad(self)
     }
     
-    private func layout() {
+    private func setLayout() {
         flowLayout.minimumLineSpacing = photoSpacing
         flowLayout.itemSize = view.bounds.size
         collectionView.frame = view.bounds
@@ -136,7 +137,7 @@ open class JXPhotoBrowser: UIViewController {
     
     open override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        layout()
+        setLayout()
         delegate.photoBrowserViewWillLayoutSubviews(self)
     }
     
@@ -173,11 +174,8 @@ open class JXPhotoBrowser: UIViewController {
     /// 屏幕即将旋转回调
     open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        // 记录旋转前index
-        let index = pageIndex
-        DispatchQueue.main.asyncAfter(deadline: .now() + coordinator.transitionDuration, execute: {
-            self.scrollToItem(index, at: .left, animated: false)
-        })
+
+        flowLayout.indexPathForFocusItem = IndexPath(item: pageIndex, section: 0)
     }
     
     /// 滑到哪张图片

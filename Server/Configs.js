@@ -39,7 +39,7 @@ const modules = [{
     type: 'module'
 }, {
     itemName: 'Downloads',
-    itemPath: path.join('/Users/xianing/Downloads'),
+    itemPath: path.join('/Users/corpdev/Downloads'),
     playPath: '',
     type: 'module'
 }];

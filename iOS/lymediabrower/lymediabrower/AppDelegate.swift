@@ -7,9 +7,6 @@
 //
 
 import UIKit
-import AppCenter
-import AppCenterAnalytics
-import AppCenterCrashes
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -33,11 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.statusBarStyle = .lightContent
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
         UINavigationBar.appearance().shadowImage = UIImage()
-        
-        MSAppCenter.start("8657fa2c-6b85-4ada-9c61-b689bef4b5b7", withServices:[
-            MSAnalytics.self,
-            MSCrashes.self
-        ])
         
         //初始化界面
         setRootVcForDefault()

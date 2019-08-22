@@ -107,7 +107,7 @@ extension FilesController: UITableViewDelegate, UITableViewDataSource {
             navigationController?.pushViewController(fc, animated: true)
         } else if item.type == "image" {
             var index = 0
-            if let i = images.index(of: item) {
+            if let i = images.firstIndex(of: item) {
                 index = i
             }
             
