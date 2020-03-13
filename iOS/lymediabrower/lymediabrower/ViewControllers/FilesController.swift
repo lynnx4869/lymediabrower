@@ -11,6 +11,7 @@ import SnapKit
 import RxSwift
 import MJRefresh
 import JXPhotoBrowser
+import Kingfisher
 
 class FilesController: UIViewController {
     
@@ -44,10 +45,10 @@ class FilesController: UIViewController {
         }
         
         let header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(onLoadData))
-        header?.lastUpdatedTimeLabel.isHidden = true
-        header?.stateLabel.isHidden = true
+        header.lastUpdatedTimeLabel?.isHidden = true
+        header.stateLabel?.isHidden = true
         tableView.mj_header = header
-        tableView.mj_header.beginRefreshing()
+        tableView.mj_header?.beginRefreshing()
     }
 
     override func didReceiveMemoryWarning() {
@@ -66,10 +67,10 @@ class FilesController: UIViewController {
                 }
             }
             
-            self?.tableView.mj_header.endRefreshing()
+            self?.tableView.mj_header?.endRefreshing()
             self?.tableView.reloadData()
         }, onError: { [weak self] error in
-            self?.tableView.mj_header.endRefreshing()
+            self?.tableView.mj_header?.endRefreshing()
         }).disposed(by: disposeBag)
     }
     
@@ -111,20 +112,23 @@ extension FilesController: UITableViewDelegate, UITableViewDataSource {
                 index = i
             }
             
-            let loader = JXKingfisherLoader()
-            let dataSource = JXNetworkingDataSource(photoLoader: loader, numberOfItems: { () -> Int in
-                return self.images.count
-            }, placeholder: { index -> UIImage? in
-                return Consts.getDefaultImage()
-            }) { index -> String? in
-                let item = self.images[index]
-                return (Consts.rootUrl() + item.playPath)
-                    .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            let browser = JXPhotoBrowser()
+            browser.numberOfItems = {
+                self.images.count
             }
-            let delegate = JXNumberPageControlDelegate()
             
-            let browser = JXPhotoBrowser(dataSource: dataSource, delegate: delegate)
-            browser.show(pageIndex: index)
+            browser.reloadCellAtIndex = { context in
+                let browserCell = context.cell as? JXPhotoBrowserImageCell
+                let item = self.images[context.index]
+                let urlString = (Consts.rootUrl() + item.playPath).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                browserCell?.imageView.kf.setImage(with: URL(string: urlString ?? ""), placeholder: Consts.getDefaultImage(), options: [], progressBlock: nil, completionHandler: { _ in
+                    browserCell?.setNeedsLayout()
+                })
+            }
+            
+            browser.pageIndex = index
+            browser.pageIndicator = JXPhotoBrowserNumberPageIndicator()
+            browser.show()
         } else if item.type == "video" {
             let vc = VideoController()
             vc.file = item

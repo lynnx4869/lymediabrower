@@ -517,7 +517,7 @@
 				INFOPLIST_FILE = lymediabrower/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.corptrip.lymediabrower;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lyning.lymediabrower;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "e323d557-b6ba-4bd1-9e66-844716e9dd6e";
 				PROVISIONING_PROFILE_SPECIFIER = iOS_Wildcard;
@@ -555,7 +555,7 @@
 				INFOPLIST_FILE = lymediabrower/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.corptrip.lymediabrower;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lyning.lymediabrower;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "0fd69640-165d-42d9-8545-90d69f72d960";
 				PROVISIONING_PROFILE_SPECIFIER = iOS_Wildcard;

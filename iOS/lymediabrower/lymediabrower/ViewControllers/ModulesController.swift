@@ -49,10 +49,10 @@ class ModulesController: UIViewController, UICollectionViewDelegate, UICollectio
         }
         
         let header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(onLoadData))
-        header?.lastUpdatedTimeLabel.isHidden = true
-        header?.stateLabel.isHidden = true
+        header.lastUpdatedTimeLabel?.isHidden = true
+        header.stateLabel?.isHidden = true
         collectionView.mj_header = header
-        collectionView.mj_header.beginRefreshing()
+        collectionView.mj_header?.beginRefreshing()
     }
 
     override func didReceiveMemoryWarning() {
@@ -69,10 +69,10 @@ class ModulesController: UIViewController, UICollectionViewDelegate, UICollectio
         Api.modules().subscribe(onNext: { [weak self] modules in
             self?.modules = modules
             
-            self?.collectionView.mj_header.endRefreshing()
+            self?.collectionView.mj_header?.endRefreshing()
             self?.collectionView.reloadData()
         }, onError: { [weak self] error in
-            self?.collectionView.mj_header.endRefreshing()
+            self?.collectionView.mj_header?.endRefreshing()
         }).disposed(by: disposeBag)
     }
     

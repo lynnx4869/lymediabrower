@@ -15,28 +15,46 @@ import RxCocoa
 
 struct HttpUtil {
     
+    static let session = Session()
+    
     static func request(url: String,
                         parameters: [String: Any]?,
                         success: @escaping (Any)->Void,
                         failure: @escaping (Error)->Void) {
+        guard let urlString = (Consts.rootUrl() + url).addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) else {
+            return
+        }
+        guard let u = URL(string: urlString) else {
+            return
+        }
         
-        var headers = [String: String]()
-        headers["Content-Type"] = "application/json; charset=UTF-8"
-
-        let urlString = (Consts.rootUrl() + url).addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+        var request = URLRequest(url: u)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = [
+            "Content-Type": "application/json; charset=UTF-8"
+        ]
+        request.timeoutInterval = 10
         
-        Alamofire.request(urlString,
-                          method: .post,
-                          parameters: parameters,
-                          encoding: JSONEncoding.default,
-                          headers: headers)
-            .responseJSON { response in
-                if let error = response.error {
-                    LYAutoPop.show(message: "网络错误", type: .error, duration: 2.0)
-                    failure(error)
-                } else {
-                    success(response.result.value!)
-                }
+        if let para = parameters {
+            do {
+                request.httpBody =
+                    try JSONSerialization.data(withJSONObject: para,
+                                               options: .prettyPrinted)
+            } catch {
+                debugPrint(error)
+            }
+        }
+        
+        session.request(request).responseJSON { response in
+            if let error = response.error {
+                LYAutoPop.show(message: "网络错误", type: .error, duration: 2.0)
+                failure(error)
+            } else if let data = response.data {
+                success(data)
+            } else {
+                LYAutoPop.show(message: "返回数据为空", type: .error, duration: 2.0)
+                failure(AFError.explicitlyCancelled)
+            }
         }
     }
     
