@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6765BA741DD087CF34798B7A /* Pods_lymediabrower.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 503C0916248B22D6E65B8191 /* Pods_lymediabrower.framework */; };
 		7D6B1AFF230E93EB003F757C /* IJKMediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D6B1AFE230E93EB003F757C /* IJKMediaFramework.framework */; };
+		7DB42A1A241F36A100757026 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DB42A19241F36A100757026 /* Launch Screen.storyboard */; };
 		8B07FEF01FBC2E15007D299A /* FilesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B07FEEF1FBC2E15007D299A /* FilesController.swift */; };
 		8B07FEF21FBC2E33007D299A /* Consts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B07FEF11FBC2E33007D299A /* Consts.swift */; };
 		8B07FEF41FBC2EF3007D299A /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B07FEF31FBC2EF3007D299A /* AppConfig.swift */; };
@@ -50,6 +51,7 @@
 		3DCCEADA3329D64A75E4FE0F /* Pods-lymediabrower.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lymediabrower.debug.xcconfig"; path = "Pods/Target Support Files/Pods-lymediabrower/Pods-lymediabrower.debug.xcconfig"; sourceTree = "<group>"; };
 		503C0916248B22D6E65B8191 /* Pods_lymediabrower.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lymediabrower.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D6B1AFE230E93EB003F757C /* IJKMediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IJKMediaFramework.framework; path = ../../../../../framework/IJKMediaFramework.framework; sourceTree = "<group>"; };
+		7DB42A19241F36A100757026 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		8B07FEEF1FBC2E15007D299A /* FilesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilesController.swift; sourceTree = "<group>"; };
 		8B07FEF11FBC2E33007D299A /* Consts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Consts.swift; sourceTree = "<group>"; };
 		8B07FEF31FBC2EF3007D299A /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 				8BB175651FBC22F800502C2D /* Assets.xcassets */,
 				8BB1756A1FBC22F800502C2D /* Info.plist */,
 				8B99AB871FBD4AC400873984 /* lymediabrower-Bridging-Header.h */,
+				7DB42A19241F36A100757026 /* Launch Screen.storyboard */,
 			);
 			path = lymediabrower;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 				8B07FEFC1FBC3659007D299A /* FileCell.xib in Resources */,
 				8BE7BB001FDA5B04004621D3 /* ModuleCell.xib in Resources */,
 				8BB175661FBC22F800502C2D /* Assets.xcassets in Resources */,
+				7DB42A1A241F36A100757026 /* Launch Screen.storyboard in Resources */,
 				8B07FEF81FBC3009007D299A /* RootUrlController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -496,7 +500,7 @@
 			baseConfigurationReference = 3DCCEADA3329D64A75E4FE0F /* Pods-lymediabrower.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Manual;
@@ -525,6 +529,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 arm64e armv7s";
 			};
 			name = Debug;
 		};
@@ -533,7 +538,7 @@
 			baseConfigurationReference = 0BC678CA95242C0048F24642 /* Pods-lymediabrower.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -562,6 +567,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "lymediabrower/lymediabrower-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 arm64e armv7s";
 			};
 			name = Release;
 		};

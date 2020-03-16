@@ -27,7 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor = Consts.MainColor
         UINavigationBar.appearance().tintColor = .white
         UINavigationBar.appearance().barStyle = .black
-        UIApplication.shared.statusBarStyle = .lightContent
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
         UINavigationBar.appearance().shadowImage = UIImage()
         
