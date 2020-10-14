@@ -14,8 +14,8 @@ public protocol JXPhotoBrowserAnimatedTransitioning: UIViewControllerAnimatedTra
     var isNavigationAnimation: Bool { get set }
 }
 
-private var isForShowKey: Int8?
-private var photoBrowserKey: Int8?
+private var isForShowKey = "isForShowKey"
+private var photoBrowserKey = "photoBrowserKey"
 
 extension JXPhotoBrowserAnimatedTransitioning {
     
@@ -31,7 +31,7 @@ extension JXPhotoBrowserAnimatedTransitioning {
         }
     }
     
-    public var photoBrowser: JXPhotoBrowser? {
+    public weak var photoBrowser: JXPhotoBrowser? {
         get {
             return objc_getAssociatedObject(self, &photoBrowserKey) as? JXPhotoBrowser
         }
