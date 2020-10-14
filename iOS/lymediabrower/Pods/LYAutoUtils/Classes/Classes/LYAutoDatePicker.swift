@@ -15,12 +15,12 @@ public enum LYAutoDatepickerType: Int {
 
 open class LYAutoDatePicker: UIViewController {
     
-    open static func show(type: LYAutoDatepickerType,
-                          time: Date?,
-                          maxTime: Date?,
-                          minTime: Date?,
-                          color: UIColor?,
-                          sureAction: @escaping (Date)->Void) -> LYAutoDatePicker {
+    public static func show(type: LYAutoDatepickerType,
+                          time: Date? = nil,
+                          maxTime: Date? = nil,
+                          minTime: Date? = nil,
+                          color: UIColor? = nil,
+                          sureAction: @escaping (Date)->Void = { _ in }) -> LYAutoDatePicker {
         
         let datepicker = LYAutoDatePicker(nibName: "LYAutoDatePicker", bundle: Bundle(for: LYAutoUtils.self))
         
@@ -45,9 +45,9 @@ open class LYAutoDatePicker: UIViewController {
     open var color: UIColor?
     open var sureAction: ((Date)->Void)!
     
-    @IBOutlet weak fileprivate var cancelBtn: UIButton!
-    @IBOutlet weak fileprivate var sureBtn: UIButton!
-    @IBOutlet weak fileprivate var datepicker: UIDatePicker!
+    @IBOutlet weak private var cancelBtn: UIButton!
+    @IBOutlet weak private var sureBtn: UIButton!
+    @IBOutlet weak private var datepicker: UIDatePicker!
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +74,7 @@ open class LYAutoDatePicker: UIViewController {
         }
         
         if color == nil {
-            color = UIColor.color(hex: 0xFF9000)
+            color = 0xff9000.color()
         }
         setComponentsColor(color: color!)
     }
@@ -84,7 +84,7 @@ open class LYAutoDatePicker: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    fileprivate func setComponentsColor(color: UIColor) {
+    private func setComponentsColor(color: UIColor) {
         datepicker.tintColor = color
         cancelBtn.setTitleColor(color, for: .normal)
         cancelBtn.setTitleColor(color, for: .highlighted)
@@ -96,11 +96,11 @@ open class LYAutoDatePicker: UIViewController {
         time = sender.date
     }
     
-    @IBAction fileprivate func cancelAction(_ sender: UIButton) {
+    @IBAction private func cancelAction(_ sender: UIButton) {
         dismiss(animated: false, completion: nil)
     }
     
-    @IBAction fileprivate func sureAction(_ sender: UIButton) {
+    @IBAction private func sureAction(_ sender: UIButton) {
         sureAction(time!)
         dismiss(animated: false, completion: nil)
     }

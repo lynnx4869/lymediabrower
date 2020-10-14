@@ -10,9 +10,12 @@ import UIKit
 import SnapKit
 import MJRefresh
 import LYAutoUtils
+import RxSwift
 
 class ModulesController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
+    fileprivate let disposeBag = DisposeBag()
+
     fileprivate var collectionView: UICollectionView!
     fileprivate var modules = [FileModel]()
 
@@ -40,16 +43,16 @@ class ModulesController: UIViewController, UICollectionViewDelegate, UICollectio
         collectionView.backgroundColor = .white
         collectionView.register(UINib(nibName: "ModuleCell", bundle: Bundle.main), forCellWithReuseIdentifier: "ModuleCellId")
         view.addSubview(collectionView)
-        
+                
         collectionView.snp.makeConstraints { (make) in
             make.edges.equalTo(self.view).inset(UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
         }
         
         let header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(onLoadData))
-        header?.lastUpdatedTimeLabel.isHidden = true
-        header?.stateLabel.isHidden = true
+        header.lastUpdatedTimeLabel?.isHidden = true
+        header.stateLabel?.isHidden = true
         collectionView.mj_header = header
-        collectionView.mj_header.beginRefreshing()
+        collectionView.mj_header?.beginRefreshing()
     }
 
     override func didReceiveMemoryWarning() {
@@ -63,28 +66,14 @@ class ModulesController: UIViewController, UICollectionViewDelegate, UICollectio
     }
     
     @objc fileprivate func onLoadData() {
-        HttpUtil.request(url: "/modules",
-                         parameters: nil,
-                         success:
-        { [weak self] (data) in
-            let dic = data as! [String: Any]
-            let modules = dic["modules"] as! [[String: String]]
+        Api.modules().subscribe(onNext: { [weak self] modules in
+            self?.modules = modules
             
-            self?.modules.removeAll()
-            
-            for item in modules {
-                let oneFile = FileModel()
-                oneFile.setValuesForKeys(item)
-                oneFile.imageIndex = -1
-                self?.modules.append(oneFile)
-            }
-            
-            self?.collectionView.mj_header.endRefreshing()
+            self?.collectionView.mj_header?.endRefreshing()
             self?.collectionView.reloadData()
-        })
-        { [weak self] (error) in
-            self?.collectionView.mj_header.endRefreshing()
-        }
+        }, onError: { [weak self] error in
+            self?.collectionView.mj_header?.endRefreshing()
+        }).disposed(by: disposeBag)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

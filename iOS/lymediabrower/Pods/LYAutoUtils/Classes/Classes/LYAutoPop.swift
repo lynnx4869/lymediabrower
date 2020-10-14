@@ -17,7 +17,7 @@ public enum LYAutoPopType: Int {
 
 open class LYAutoPop {
     
-    static open func show(message: String, type: LYAutoPopType, duration: TimeInterval) {
+    public static func show(message: String, type: LYAutoPopType, duration: TimeInterval) {
         let y = UIApplication.shared.statusBarFrame.height + 44
         let autoPopView = LYAutoPopView(frame: CGRect(x: 0, y: y, width: LyConsts.ScreenWidth, height: 30), message: message, type: type)
         UIApplication.shared.keyWindow?.addSubview(autoPopView)
@@ -41,8 +41,8 @@ open class LYAutoPop {
 
 fileprivate class LYAutoPopView: UIView {
     
-    fileprivate let leftIcon = UIImageView(frame: CGRect(x: 10, y: 8, width: 14, height: 14))
-    fileprivate let messageLabel = UILabel(frame: CGRect(x: 34, y: 0, width: LyConsts.ScreenWidth-44, height: 30))
+    private let leftIcon = UIImageView(frame: CGRect(x: 10, y: 8, width: 14, height: 14))
+    private let messageLabel = UILabel(frame: CGRect(x: 34, y: 0, width: LyConsts.ScreenWidth-44, height: 30))
     
     init(frame: CGRect, message: String, type: LYAutoPopType) {
         super.init(frame: frame)
@@ -63,19 +63,19 @@ fileprivate class LYAutoPopView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    fileprivate func setType(message: String, type: LYAutoPopType) {
+    private func setType(message: String, type: LYAutoPopType) {
         messageLabel.text = message
         
         if type == .success {
-            backgroundColor = UIColor.color(hex: 0x16A085)
+            backgroundColor = 0x16a085.color()
             leftIcon.image = UIImage(named: "ly_message_ok", in: Bundle(for: LYAutoUtils.self), compatibleWith: nil)
         } else {
-            backgroundColor = UIColor.color(hex: 0xD9544F)
+            backgroundColor = 0xd9544f.color()
             leftIcon.image = UIImage(named: "ly_message_warning", in: Bundle(for: LYAutoUtils.self), compatibleWith: nil)
         }
     }
     
-    @objc fileprivate func removeSelf() {
+    @objc private func removeSelf() {
         removeFromSuperview()
     }
     

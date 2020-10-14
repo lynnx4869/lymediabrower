@@ -7,24 +7,22 @@
 //
 
 import UIKit
-import MediaPlayer
+import IJKMediaFramework
 
-class VideoController: UIViewController, VLCMediaPlayerDelegate {
+class VideoController: UIViewController {
     
     var file: FileModel!
     
-    fileprivate let playView = UIView()
-    fileprivate var iplayer: VLCMediaPlayer!
-    fileprivate var video: VLCMedia!
+    fileprivate var iplayer: IJKMediaPlayback!
     fileprivate let controlBg = UIView()
     fileprivate let control = VideoControl()
     
-    fileprivate var isFullscreenModel: Bool! {
+    fileprivate var isFullscreenModel: Bool = false {
         didSet {
             if oldValue == isFullscreenModel { return }
             
             if isFullscreenModel {
-                playView.snp.remakeConstraints { (make) in
+                iplayer.view.snp.remakeConstraints { (make) in
                     make.edges.equalTo(view).inset(UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
                 }
                 
@@ -42,11 +40,11 @@ class VideoController: UIViewController, VLCMediaPlayerDelegate {
                     make.edges.equalTo(controlBg).inset(UIEdgeInsets(top: 20, left: left, bottom: 20, right: right))
                 }
             } else {
-                playView.snp.remakeConstraints { (make) in
+                iplayer.view.snp.remakeConstraints { (make) in
                     make.top.equalTo(view.snp.top).offset(0)
                     make.left.equalTo(view.snp.left).offset(0)
                     make.right.equalTo(view.snp.right).offset(0)
-                    make.height.equalTo(playView.snp.width).multipliedBy(9.0/16.0).priority(750)
+                    make.height.equalTo(self.iplayer.view.snp.width).multipliedBy(9.0/16.0).priority(750)
                 }
                 
                 controlBg.snp.remakeConstraints { (make) in
@@ -57,10 +55,7 @@ class VideoController: UIViewController, VLCMediaPlayerDelegate {
                 }
                 
                 control.snp.remakeConstraints { (make) in
-                    var top: CGFloat = 0
-                    if Consts.iPhoneX() {
-                        top = 44.0
-                    }
+                    let top = UIApplication.shared.statusBarFrame.height
                     make.edges.equalTo(controlBg).inset(UIEdgeInsets(top: top, left: 0, bottom: 0, right: 0))
                 }
             }
@@ -86,13 +81,25 @@ class VideoController: UIViewController, VLCMediaPlayerDelegate {
     
     //MARK: - Init
     fileprivate func setupViews() {
-        playView.backgroundColor = .black
-        view.addSubview(playView)
-        playView.snp.makeConstraints { (make) in
+        let urlString = (Consts.rootUrl() + file.playPath).addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+        let url = URL(string: urlString)
+        
+        IJKFFMoviePlayerController.setLogReport(false)
+        IJKFFMoviePlayerController.setLogLevel(k_IJK_LOG_ERROR)
+        IJKFFMoviePlayerController.checkIfFFmpegVersionMatch(true)
+        
+        let options = IJKFFOptions.byDefault()
+        
+        iplayer = IJKFFMoviePlayerController(contentURL: url, with: options)
+        iplayer.scalingMode = .aspectFit
+        iplayer.shouldAutoplay = true
+        
+        view.addSubview(iplayer.view)
+        iplayer.view.snp.makeConstraints { (make) in
             make.top.equalTo(view.snp.top).offset(0)
             make.left.equalTo(view.snp.left).offset(0)
             make.right.equalTo(view.snp.right).offset(0)
-            make.height.equalTo(playView.snp.width).multipliedBy(9.0/16.0).priority(750)
+            make.height.equalTo(self.iplayer.view.snp.width).multipliedBy(9.0/16.0).priority(750)
         }
         
         controlBg.backgroundColor = .clear
@@ -104,24 +111,13 @@ class VideoController: UIViewController, VLCMediaPlayerDelegate {
             make.height.equalTo(controlBg.snp.width).multipliedBy(9.0/16.0).priority(750)
         }
         
+        control.delegatePlayer = iplayer
+        control.isControlHidden = false
         controlBg.addSubview(control)
         control.snp.makeConstraints { (make) in
-            var top: CGFloat = 0
-            if Consts.iPhoneX() {
-                top = 44.0
-            }
+            let top = UIApplication.shared.statusBarFrame.height
             make.edges.equalTo(controlBg).inset(UIEdgeInsets(top: top, left: 0, bottom: 0, right: 0))
         }
-        
-        let urlString = (Consts.rootUrl() + file.playPath).addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-        
-        iplayer = VLCMediaPlayer()
-        iplayer.drawable = playView
-        iplayer.delegate = self
-        video = VLCMedia(url: URL(string: urlString)!)
-        iplayer.media = video
-        
-        isFullscreenModel = false
     }
     
     fileprivate func setupControl() {
@@ -131,9 +127,6 @@ class VideoController: UIViewController, VLCMediaPlayerDelegate {
         control.playBtn.addTarget(self, action: #selector(playAction(_:)), for: .touchUpInside)
         control.fullBtn.addTarget(self, action: #selector(fullAction(_:)), for: .touchUpInside)
         control.videoProgress.addTarget(self, action: #selector(changeProgress(_:)), for: .valueChanged)
-        
-        control.progressTime.text = formatTime(time: 0)
-        control.fullTime.text = formatTime(time: 0)
         
         //单击手势
         let stap = UITapGestureRecognizer(target: self, action: #selector(singleTapAction(_:)))
@@ -178,8 +171,19 @@ class VideoController: UIViewController, VLCMediaPlayerDelegate {
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(orientationHandler(_:)),
-                                               name: Notification.Name.UIDeviceOrientationDidChange,
+                                               name: UIDevice.orientationDidChangeNotification,
                                                object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(mediaPlayerStateChanged(_:)),
+                                               name: NSNotification.Name.IJKMPMoviePlayerPlaybackStateDidChange,
+                                               object: iplayer)
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        get {
+            return UIStatusBarStyle.lightContent
+        }
     }
     
     //MARK: - Views
@@ -187,6 +191,7 @@ class VideoController: UIViewController, VLCMediaPlayerDelegate {
         super.viewWillAppear(animated)
         
         navigationController?.setNavigationBarHidden(true, animated: false)
+        iplayer.prepareToPlay()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -195,10 +200,10 @@ class VideoController: UIViewController, VLCMediaPlayerDelegate {
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         
-        iplayer.play()
+        iplayer.shutdown()
     }
     
     //MARK: - Events
@@ -206,11 +211,6 @@ class VideoController: UIViewController, VLCMediaPlayerDelegate {
         if isFullscreenModel {
             forceChangeOrientation(orientation: .portrait)
         } else {
-            iplayer.stop()
-            iplayer.drawable = nil
-            iplayer.delegate = nil
-            iplayer = nil
-            
             UIDevice.current.endGeneratingDeviceOrientationNotifications()
             NotificationCenter.default.removeObserver(self)
             
@@ -219,7 +219,7 @@ class VideoController: UIViewController, VLCMediaPlayerDelegate {
     }
     
     @objc fileprivate func playAction(_ sender: UIButton) {
-        if iplayer.isPlaying {
+        if iplayer.isPlaying() {
             iplayer.pause()
         } else {
             iplayer.play()
@@ -236,9 +236,8 @@ class VideoController: UIViewController, VLCMediaPlayerDelegate {
     
     @objc fileprivate func changeProgress(_ sender: UISlider) {
         let progress = sender.value
-        let time = video.length.value.floatValue * progress
-        
-        iplayer.time = VLCTime(number: NSNumber(value: time))
+        iplayer.currentPlaybackTime = TimeInterval(progress)
+        control.refreshMediaControl()
     }
     
     //MARK: - Touch Events
@@ -247,7 +246,7 @@ class VideoController: UIViewController, VLCMediaPlayerDelegate {
     }
     
     @objc fileprivate func doubleTapAction(_ sender: UITapGestureRecognizer) {
-        if iplayer.isPlaying {
+        if iplayer.isPlaying() {
             iplayer.pause()
         } else {
             iplayer.play()
@@ -260,7 +259,7 @@ class VideoController: UIViewController, VLCMediaPlayerDelegate {
         if _volumeSlider == nil {
             for view in volumeView.subviews {
                 if (view.superclass?.isSubclass(of: UISlider.classForCoder()))! {
-                    _volumeSlider = view as! UISlider
+                    _volumeSlider = view as? UISlider
                 }
             }
         }
@@ -303,13 +302,13 @@ class VideoController: UIViewController, VLCMediaPlayerDelegate {
     }
     
     
-    fileprivate var panNowTime: Float = 0.0
+    fileprivate var panNowTime: TimeInterval = 0.0
     fileprivate var panStartPt: CGPoint!
     
     @objc fileprivate func panAction(_ sender: UIPanGestureRecognizer) {
         if isFullscreenModel {
             if sender.state == .began {
-                panNowTime = iplayer.time.value.floatValue
+                panNowTime = iplayer.currentPlaybackTime
                 panStartPt = sender.translation(in: control.centerView)
             }
             
@@ -317,10 +316,11 @@ class VideoController: UIViewController, VLCMediaPlayerDelegate {
                 let panEndPt = sender.translation(in: control.centerView)
                 let panOffset = panEndPt.x - panStartPt.x
                 
-                let fullTime = video.length.value.floatValue
+                let fullTime = iplayer.duration
                 let width = control.centerView.bounds.width
-                let offsetTime = panNowTime + fullTime * Float(panOffset/width)
-                iplayer.time = VLCTime(number: NSNumber(value: offsetTime))
+                let offsetTime = panNowTime + fullTime * TimeInterval(panOffset/width)
+                iplayer.currentPlaybackTime = offsetTime
+                control.refreshMediaControl()
             }
             
             if sender.state == .ended {
@@ -329,7 +329,8 @@ class VideoController: UIViewController, VLCMediaPlayerDelegate {
             }
             
             if sender.state == .cancelled || sender.state == .failed {
-                iplayer.time = VLCTime(number: NSNumber(value: panNowTime))
+                iplayer.currentPlaybackTime = panNowTime
+                control.refreshMediaControl()
                 
                 panNowTime = 0.0
                 panStartPt = nil
@@ -339,7 +340,7 @@ class VideoController: UIViewController, VLCMediaPlayerDelegate {
     
     //MARK: - Notifications
     @objc fileprivate func orientationHandler(_ noti: Notification) {
-        if UIDeviceOrientationIsLandscape(UIDevice.current.orientation) {
+        if UIDevice.current.orientation.isLandscape {
             isFullscreenModel = true
         } else {
             isFullscreenModel = false
@@ -347,45 +348,22 @@ class VideoController: UIViewController, VLCMediaPlayerDelegate {
     }
     
     //MARK: - VLCMediaPlayerDelegate
-    func mediaPlayerStateChanged(_ aNotification: Notification!) {
-        if iplayer.state == .playing {
+    @objc func mediaPlayerStateChanged(_ noti: Notification) {
+        if iplayer.playbackState == .playing {
             control.playBtn.setImage(UIImage(named: "pause"), for: .normal)
-        } else if iplayer.state == .paused  {
+        } else if iplayer.playbackState == .paused  {
             control.playBtn.setImage(UIImage(named: "play"), for: .normal)
-        } else if iplayer.state == .stopped {
+        } else if iplayer.playbackState == .stopped {
             iplayer.stop()
             control.playBtn.setImage(UIImage(named: "play"), for: .normal)
             control.videoProgress.value = 1.0
         }
-        //        else if iplayer.state == .buffering {
-        //            control.playBtn.setImage(UIImage(named: "play"), for: .normal)
-        //        }
-    }
-    
-    func mediaPlayerTimeChanged(_ aNotification: Notification!) {
-        let progress = iplayer.time.value.floatValue / video.length.value.floatValue
-        control.videoProgress.value = progress
-        control.progressTime.text = formatTime(time: iplayer.time.value.floatValue)
-        control.fullTime.text = formatTime(time: video.length.value.floatValue)
     }
     
     //MARK: - Utils
     fileprivate func forceChangeOrientation(orientation: UIInterfaceOrientation) {
         let orientationTarget = NSNumber(value:orientation.rawValue)
         UIDevice.current.setValue(orientationTarget, forKey: "orientation")
-    }
-    
-    fileprivate func formatTime(time: Float) -> String {
-        let zone = Date(timeIntervalSince1970: 0)
-        let now = Date(timeIntervalSince1970: TimeInterval(time/1000))
-        
-        let dateComponents = Calendar.current.dateComponents([.hour, .minute, .second], from: zone, to: now)
-        
-        if dateComponents.hour == 0 {
-            return String(format: "%.2d:%.2d", arguments: [dateComponents.minute!, dateComponents.second!])
-        } else {
-            return String(format: "%.2d:%.2d:%.2d", arguments: [dateComponents.hour!, dateComponents.minute!, dateComponents.second!])
-        }
     }
     
 }

@@ -15,11 +15,11 @@ class ModuleCell: UICollectionViewCell {
     
     var title: String! {
         didSet {
-            let dict: [NSAttributedStringKey: Any] = [
-                NSAttributedStringKey.foregroundColor: UIColor.white,
-                NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17),
-                NSAttributedStringKey.strokeWidth: -3,
-                NSAttributedStringKey.strokeColor: UIColor.black
+            let dict: [NSAttributedString.Key: Any] = [
+                NSAttributedString.Key.foregroundColor: UIColor.white,
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17),
+                NSAttributedString.Key.strokeWidth: -3,
+                NSAttributedString.Key.strokeColor: UIColor.black
             ]
             titleLabel.attributedText = NSAttributedString(string: title,
                                                            attributes: dict)

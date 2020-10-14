@@ -8,13 +8,20 @@
 
 import UIKit
 import SnapKit
+import IJKMediaFramework
 
 class VideoControl: UIView {
     
-    var isControlHidden: Bool! = false {
+    var delegatePlayer: IJKMediaPlayback!
+    
+    var isControlHidden: Bool = false {
         didSet {
             topView.isHidden = isControlHidden
             bottomView.isHidden = isControlHidden
+            
+            if !isControlHidden {
+                refreshMediaControl()
+            }
         }
     }
     
@@ -30,12 +37,12 @@ class VideoControl: UIView {
     let progressTime = UILabel()
     let fullTime = UILabel()
     let videoProgress = UISlider()
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         backgroundColor = .clear
-
+        
         createViews()
     }
     
@@ -118,11 +125,8 @@ class VideoControl: UIView {
         fullTime.textAlignment = .center
         bottomView.addSubview(fullTime)
         
-        videoProgress.maximumValue = 1.0
-        videoProgress.minimumValue = 0.0
-        videoProgress.value = 0.0
         videoProgress.minimumTrackTintColor = Consts.MainColor
-        videoProgress.setThumbImage(UIImage(named: "slider-btn"), for: .normal) 
+        videoProgress.setThumbImage(UIImage(named: "slider-btn"), for: .normal)
         bottomView.addSubview(videoProgress)
         
         playBtn.snp.makeConstraints { (make) in
@@ -160,8 +164,42 @@ class VideoControl: UIView {
         }
     }
     
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
+    @objc func refreshMediaControl() {
+        let duration = Float(delegatePlayer.duration)
+        let position = Float(delegatePlayer.currentPlaybackTime)
+        if duration > 0 {
+            videoProgress.maximumValue = duration
+            videoProgress.value = position
+            fullTime.text = formatTime(time: duration)
+            progressTime.text = formatTime(time: position)
+        } else {
+            videoProgress.maximumValue = 1.0
+            videoProgress.value = 0.0
+            fullTime.text = formatTime(time: 0)
+            progressTime.text = formatTime(time: 0)
+        }
+        
+        NSObject.cancelPreviousPerformRequests(withTarget: self,
+                                               selector: #selector(refreshMediaControl),
+                                               object: nil)
+        if !isControlHidden {
+            perform(#selector(refreshMediaControl),
+                    with: nil,
+                    afterDelay: 0.5)
+        }
     }
-
+    
+    fileprivate func formatTime(time: Float) -> String {
+        let zone = Date(timeIntervalSince1970: 0)
+        let now = Date(timeIntervalSince1970: TimeInterval(time))
+        
+        let dateComponents = Calendar.current.dateComponents([.hour, .minute, .second], from: zone, to: now)
+        
+        if dateComponents.hour == 0 {
+            return String(format: "%.2d:%.2d", arguments: [dateComponents.minute!, dateComponents.second!])
+        } else {
+            return String(format: "%.2d:%.2d:%.2d", arguments: [dateComponents.hour!, dateComponents.minute!, dateComponents.second!])
+        }
+    }
+    
 }

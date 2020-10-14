@@ -9,7 +9,7 @@
 import UIKit
 import LYAutoUtils
 
-class RootUrlController: UIViewController {
+class RootUrlController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var textField: UITextField!
     
@@ -18,11 +18,17 @@ class RootUrlController: UIViewController {
 
         // Do any additional setup after loading the view.
         
+        textField.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+        return true
     }
     
     @IBAction func sureUrl(_ sender: UIButton) {

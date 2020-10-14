@@ -66,37 +66,39 @@ const HomeService = {
 
         for (let item of dirList) {
             let itemPath = path.join(dirPath, item);
-            if (fs.statSync(itemPath).isDirectory()) {
-                directorys.push({
-                    itemName: item,
-                    itemPath: itemPath,
-                    playPath: '',
-                    type: 'directory'
-                });
-            } else {
-                let type = getFileType(item);
-                let file = {
-                    itemName: item,
-                    itemPath: itemPath,
-                    playPath: itemPath.replace(modulePath, '').replace('\\', '/'),
-                    type: type
-                };
-                switch (type) {
-                    case 'txt':
-                        txts.push(file);
-                        break;
-                    case 'image':
-                        images.push(file);
-                        break;
-                    case 'music':
-                        musics.push(file);
-                        break;
-                    case 'video':
-                        videos.push(file);
-                        break;
-                    case 'others':
-                        others.push(file);
-                        break;
+            if (fs.existsSync(itemPath)) {
+                if (fs.statSync(itemPath).isDirectory()) {
+                    directorys.push({
+                        itemName: item,
+                        itemPath: itemPath,
+                        playPath: '',
+                        type: 'directory'
+                    });
+                } else {
+                    let type = getFileType(item);
+                    let file = {
+                        itemName: item,
+                        itemPath: itemPath,
+                        playPath: itemPath.replace(modulePath, '').replace('\\', '/'),
+                        type: type
+                    };
+                    switch (type) {
+                        case 'txt':
+                            txts.push(file);
+                            break;
+                        case 'image':
+                            images.push(file);
+                            break;
+                        case 'music':
+                            musics.push(file);
+                            break;
+                        case 'video':
+                            videos.push(file);
+                            break;
+                        case 'others':
+                            others.push(file);
+                            break;
+                    }
                 }
             }
         }

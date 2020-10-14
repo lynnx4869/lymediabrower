@@ -8,17 +8,21 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 import MJRefresh
-import MWPhotoBrowser
+import JXPhotoBrowser
+import Kingfisher
 
-class FilesController: UIViewController, UITableViewDelegate, UITableViewDataSource, MWPhotoBrowserDelegate {
+class FilesController: UIViewController {
+    
+    fileprivate let disposeBag = DisposeBag()
     
     var file: FileModel!
     var modulePath: String!
     
     fileprivate var tableView: UITableView!
     fileprivate var files = [FileModel]()
-    fileprivate var images = [MWPhoto]()
+    fileprivate var images = [FileModel]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,8 +31,6 @@ class FilesController: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         view.backgroundColor = .white
         navigationItem.title = file.itemName
-        
-        
         
         tableView = UITableView(frame: .zero, style: .plain)
         tableView.delegate = self
@@ -43,10 +45,10 @@ class FilesController: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
         
         let header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(onLoadData))
-        header?.lastUpdatedTimeLabel.isHidden = true
-        header?.stateLabel.isHidden = true
+        header.lastUpdatedTimeLabel?.isHidden = true
+        header.stateLabel?.isHidden = true
         tableView.mj_header = header
-        tableView.mj_header.beginRefreshing()
+        tableView.mj_header?.beginRefreshing()
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,38 +57,27 @@ class FilesController: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @objc fileprivate func onLoadData() {
-        HttpUtil.request(url: "/files",
-                         parameters: ["fileroot": file.itemPath, "modulePath": modulePath],
-                         success:
-            { [weak self] (data) in
-                let dic = data as! [String: Any]
-                let fileList = dic["fileList"] as! [[String: String]]
-                
-                self?.files.removeAll()
-                
-                for item in fileList {
-                    let oneFile = FileModel()
-                    oneFile.setValuesForKeys(item)
-                    self?.files.append(oneFile)
-                    
-                    if oneFile.type == "image" {
-                        let urlString = (Consts.rootUrl() + oneFile.playPath).addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-                        let image = MWPhoto(url: URL(string: urlString))
-                        self?.images.append(image!)
-                        
-                        oneFile.imageIndex = (self?.images.count)! - 1
-                    } else {
-                        oneFile.imageIndex = -1
-                    }
+        Api.files(file.itemPath, modulePath).subscribe(onNext: { [weak self] files in
+            self?.files = files
+            
+            self?.images.removeAll()
+            for file in files {
+                if file.type == "image" {
+                    self?.images.append(file)
                 }
-                
-                self?.tableView.mj_header.endRefreshing()
-                self?.tableView.reloadData()
-        }) { [weak self] (error) in
-            self?.tableView.mj_header.endRefreshing()
-        }
+            }
+            
+            self?.tableView.mj_header?.endRefreshing()
+            self?.tableView.reloadData()
+        }, onError: { [weak self] error in
+            self?.tableView.mj_header?.endRefreshing()
+        }).disposed(by: disposeBag)
     }
+    
+}
 
+extension FilesController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return files.count
     }
@@ -116,44 +107,51 @@ class FilesController: UIViewController, UITableViewDelegate, UITableViewDataSou
             fc.modulePath = modulePath
             navigationController?.pushViewController(fc, animated: true)
         } else if item.type == "image" {
-            let browser = MWPhotoBrowser(delegate: self)
-            
-            // Set options
-            browser?.displayActionButton = false
-            browser?.displayNavArrows = false
-            browser?.displaySelectionButtons = false
-            browser?.zoomPhotosToFill = false
-            browser?.alwaysShowControls = false
-            browser?.enableGrid = false
-            browser?.startOnGrid = false
-            browser?.autoPlayOnAppear = false
-
-            browser?.showNextPhoto(animated: true)
-            browser?.showPreviousPhoto(animated: true)
-            
-            if item.imageIndex != -1 {
-                browser?.setCurrentPhotoIndex(UInt(item.imageIndex))
+            var index = 0
+            if let i = images.firstIndex(of: item) {
+                index = i
             }
             
-            navigationController?.pushViewController(browser!, animated: true)
+            let browser = JXPhotoBrowser()
+            browser.numberOfItems = {
+                self.images.count
+            }
+            
+            browser.reloadCellAtIndex = { context in
+                let browserCell = context.cell as? JXPhotoBrowserImageCell
+                let item = self.images[context.index]
+                let urlString = (Consts.rootUrl() + item.playPath).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                browserCell?.imageView.kf.setImage(with: URL(string: urlString ?? ""), placeholder: Consts.getDefaultImage(), options: [], progressBlock: nil, completionHandler: { _ in
+                    browserCell?.setNeedsLayout()
+                })
+            }
+            
+            browser.pageIndex = index
+            browser.pageIndicator = JXPhotoBrowserNumberPageIndicator()
+            browser.show()
         } else if item.type == "video" {
             let vc = VideoController()
             vc.file = item
             navigationController?.pushViewController(vc, animated: true)
+        } else if item.type == "document" {
+            let dc = DocumentController()
+            dc.file = item
+            navigationController?.pushViewController(dc, animated: true)
         } else if item.type == "txt" {
-            let tc = TxtController()
-            tc.file = item
-            navigationController?.pushViewController(tc, animated: true)
+//            DispatchQueue.global().async {
+//                let pageVc = LYAutoReadPageController()
+//                if let fileURL = Bundle.main.url(forResource: "tw", withExtension: "txt"),
+//                    let model = LYAutoReadModel.getLocalModel(fileUrl: fileURL) {
+//
+//                    pageVc.resourceURL = fileURL
+//                    pageVc.model = model
+//
+//                    DispatchQueue.main.async {
+//                        self.present(pageVc, animated: true, completion: nil)
+//                    }
+//                }
+//            }
         }
-    }
-    
-    //MARK: - MWPhotoBrowserDelegate
-    func numberOfPhotos(in photoBrowser: MWPhotoBrowser!) -> UInt {
-        return UInt(images.count)
-    }
-    
-    func photoBrowser(_ photoBrowser: MWPhotoBrowser!, photoAt index: UInt) -> MWPhotoProtocol! {
-        return images[Int(index)]
     }
     
 }
